@@ -11,6 +11,7 @@ export default defineConfig({
             {
                 entry: path.resolve(__dirname, 'src/index.ts'),
                 name: 'upReact',
+                formats: ["cjs", "es", "umd"],
                 fileName: (format) => `index.${format}.js`
             }
         ,
@@ -18,14 +19,15 @@ export default defineConfig({
             // make sure to externalize deps that shouldn't be bundled
             // into your library
             external: [
-                "@bundled-es-modules/axios",
                 'axios',
+                "antd"
             ],
             output: {
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
-                    axios: 'axios'
+                    axios: 'axios',
+                    antd: 'Antd',
                 }
             }
         }
