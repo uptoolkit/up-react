@@ -1,7 +1,7 @@
 {
   "name": "up-react",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/index.umd.js",
   "module": "dist/index.umd.js",
   "exports": {
