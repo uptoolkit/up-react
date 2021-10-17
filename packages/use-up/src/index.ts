@@ -1,3 +1,1 @@
-import useUp from './useUp'
-
-export default useUp;
+export {useUp} from './useUp';

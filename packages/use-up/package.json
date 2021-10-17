@@ -11,7 +11,7 @@
       "require": "./dist/index.umd.js"
     }
   },
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

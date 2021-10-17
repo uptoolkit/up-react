@@ -47,7 +47,7 @@ interface UpOptions {
  * @param options
  * @param override
  */
-const useUp = (options?: UpOptions, override = true) => {
+export const useUp = (options?: UpOptions, override = true) => {
 
     if (options) {
 
