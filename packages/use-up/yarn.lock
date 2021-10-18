@@ -3289,15 +3289,15 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-js-config-helper@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.0.1.tgz#fcf7e7236c9b366e32eec59f9f197f3a74af0d4a"
-  integrity sha512-nd5L04Hq8MCaoXkWIfL0XlgpDt4BTAIrtWshY7TcEAhQdobuwpE3vV7rxuLKn4pymirqXcDemArdvgRPgxnNwg==
+js-config-helper@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.0.4.tgz#3bc2253632a25df3dc4e8d5601fd11e359e7bf93"
+  integrity sha512-Ax4dkGGIi2byVnpV0Cqi+M6TpuxM6EYLBVG6bACeQXuenzSc49Eb0q8UM7zYltYios1Sd53IHQHwXSr1y7Q38w==
 
-js-form-helper@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/js-form-helper/-/js-form-helper-1.0.7.tgz#639456e8e4921c34cd3f80ac54d7d2085041f6fa"
-  integrity sha512-3sZAVwiaPZ5t7rctw1XnRYdd7I6HC3FGts1UO/lZ2HjacmFCefekcaSVLyw6i14DYuqpYYMDnBdMRGXK6yoaQQ==
+js-form-helper@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/js-form-helper/-/js-form-helper-1.0.8.tgz#793089ec12a677e3efc823d1918ef6534a325998"
+  integrity sha512-CSiN+Tnz8pikw86luhDEl2ZyimPrhhYMP1FsFGOR9+TbKr8Rp6O5f4WJONfLmwrQAdCl92xf2KxixyK9FOJTfA==
   dependencies:
     validatorjs "^3.22.1"
 
