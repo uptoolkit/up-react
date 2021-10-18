@@ -47,13 +47,12 @@ export interface exportedVars {
     form: boolean;
     formApi: boolean;
     store?: boolean;
-    t?(key, data?, lang?) : string|any;
-    __?(key, data?, lang?): string|any;
+    t?(key: string, data?: object, lang?: string) : string|any;
+    __?(key: string, data?: object, lang?: string): string|any;
     choice?(key: string, count?: number, data?: any, locale?: string): string|any;
     message?:MessageInstance;
     notification?:NotificationInstance;
 }
-
 
 export let exported:exportedVars|any;
 
@@ -61,7 +60,6 @@ export let exported:exportedVars|any;
  * useUp helper function
  *
  * @param options
- * @param override
  */
 export function useUp(options?: UpOptions) {
 
