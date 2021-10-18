@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import useUp from '../packages/use-up/src/useUp'
+import {useUp} from '../packages/use-up/src/useUp'
 
 //1. You must instanciate the useUp singleton
 useUp({
