@@ -1,15 +1,8 @@
 {
   "name": "use-up",
   "description": "React helper to setup multiple useful plugins in one setup. This is a part of the Up Toolkit.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
-    }
-  },
-  "version": "1.0.23",
+  "main": "dist/index.umd.js",
+  "version": "1.0.28",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
