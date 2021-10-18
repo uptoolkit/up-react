@@ -10,7 +10,6 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@bundled-es-modules/axios": "^0.21.1",
     "@cherrypulp/i18n": "^1.4.2",
     "@reduxjs/toolkit": "^1.6.2",
     "antd": "^4.16.13",

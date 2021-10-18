@@ -143,3 +143,5 @@ export function useUp(options?: UpOptions) {
 
     return exported;
 }
+
+export default useUp;

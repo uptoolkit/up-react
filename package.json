@@ -4,12 +4,6 @@
   "version": "1.0.9",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js"
-    }
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -17,28 +11,26 @@
   },
   "dependencies": {
     "@cherrypulp/i18n": "^1.4.3",
-    "@headlessui/react": "^1.4.0",
-    "@heroicons/react": "^1.0.4",
-    "@reduxjs/toolkit": "^1.6.2",
-    "@tailwindcss/forms": "^0.3.4",
-    "@vitejs/plugin-vue": "^1.9.3",
-    "antd": "^4.16.13",
-    "axios-es6": "^0.11.1",
     "core-js": "^3.16.1",
-    "daisyui": "^1.14.4",
-    "dayjs": "^1.10.7",
     "js-config-helper": "^1.0.4",
     "js-form-helper": "^1.0.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-router-dom": "^5.3.0",
-    "react-use": "^17.3.1",
-    "use-up": "^1.0.5"
+    "react-use": "^17.3.1"
   },
   "optionalDependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios-es6": "^0.11.1",
+    "tailwindcss": "^2.2.16",
+    "@headlessui/react": "^1.4.0",
+    "@heroicons/react": "^1.0.4",
+    "@tailwindcss/forms": "^0.3.4",
     "antd": "^4.16.13",
     "collect.js": "^4.29.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "daisyui": "^1.14.4",
+    "react-router-dom": "^5.3.0",
+    "dayjs": "^1.10.7"
   },
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.0",
@@ -48,7 +40,6 @@
     "autoprefixer": "^10.3.7",
     "lerna": "^4.0.0",
     "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.16",
     "typescript": "^4.3.2",
     "vite": "^2.6.4",
     "vite-plugin-dts": "^0.8.3"

@@ -10,8 +10,8 @@ export default defineConfig({
         lib:
             {
                 entry: path.resolve(__dirname, 'src/index.ts'),
-                name: 'upReact',
-                formats: ["cjs", "es", "umd"],
+                name: 'UpReact',
+                formats: ["es", "umd"],
                 fileName: (format) => `index.${format}.js`
             }
         ,

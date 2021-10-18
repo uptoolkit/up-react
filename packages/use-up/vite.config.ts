@@ -11,7 +11,6 @@ export default defineConfig({
             {
                 entry: path.resolve(__dirname, 'src/useUp.ts'),
                 name: 'useUp',
-                formats: ["cjs", "umd", "es"],
                 fileName: (format) => `index.${format}.js`
             }
         ,
@@ -19,7 +18,6 @@ export default defineConfig({
             // make sure to externalize deps that shouldn't be bundled
             // into your library
             external: [
-                "@bundled-es-modules/axios",
                 'axios',
                 "react",
                 "react-dom",
@@ -33,8 +31,7 @@ export default defineConfig({
                     axios: 'axios',
                     react: 'React',
                     antd: 'antd',
-                    "react-dom": 'ReactDOM',
-                    "@bundled-es-modules/axios" : "axios"
+                    "react-dom": 'ReactDOM'
                 }
             }
         }
