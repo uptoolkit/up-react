@@ -9,8 +9,9 @@ export default defineConfig({
     build: {
         lib:
             {
-                entry: path.resolve(__dirname, 'src/index.ts'),
+                entry: path.resolve(__dirname, 'src/useUp.ts'),
                 name: 'useUp',
+                formats: ["cjs", "umd", "es"],
                 fileName: (format) => `index.${format}.js`
             }
         ,
@@ -20,12 +21,19 @@ export default defineConfig({
             external: [
                 "@bundled-es-modules/axios",
                 'axios',
+                "react",
+                "react-dom",
+                "classnames",
+                "antd"
             ],
             output: {
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
                     axios: 'axios',
+                    react: 'React',
+                    antd: 'antd',
+                    "react-dom": 'ReactDOM',
                     "@bundled-es-modules/axios" : "axios"
                 }
             }

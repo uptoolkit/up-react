@@ -8,19 +8,17 @@ import {MessageInstance} from "antd/lib/message";
 import {NotificationInstance} from "antd/es/notification";
 import Form from "js-form-helper";
 
-let UpSingleton: Function;
+export let api: object | null | any;
+export let http: object | null | any;
+export let config: any;
+export let i18n: I18n | null;
+export let store: Store<object> | unknown | null;
+export let form: any | null;
+export let formApi: any | null;
+export let message: MessageInstance | null;
+export let notification: NotificationInstance | null;
 
-let api:  object | null | any;
-let http: object | null | any;
-let config: any;
-let i18n: I18n | null;
-let store: Store<object> | unknown | null;
-let form: any | null;
-let formApi: any | null;
-let message: MessageInstance | null;
-let notification: NotificationInstance | null;
-
-interface UpOptions {
+export interface UpOptions {
     debug?: boolean,
     project?: {
         name: string,
@@ -41,13 +39,31 @@ interface UpOptions {
     exclude?: string[];
 }
 
+export interface exportedVars {
+    config: boolean;
+    api: boolean;
+    http: boolean;
+    i18n: boolean;
+    form: boolean;
+    formApi: boolean;
+    store?: boolean;
+    t?(key, data?, lang?) : string|any;
+    __?(key, data?, lang?): string|any;
+    choice?(key: string, count?: number, data?: any, locale?: string): string|any;
+    message?:MessageInstance;
+    notification?:NotificationInstance;
+}
+
+
+export let exported:exportedVars|any;
+
 /**
  * useUp helper function
  *
  * @param options
  * @param override
  */
-export const useUp = (options?: UpOptions, override = true) => {
+export function useUp(options?: UpOptions) {
 
     if (options) {
 
@@ -107,7 +123,7 @@ export const useUp = (options?: UpOptions, override = true) => {
 
         store = config.get('override.store');
 
-        const exported = {
+        exported = {
             config,
             api,
             http,
@@ -125,15 +141,7 @@ export const useUp = (options?: UpOptions, override = true) => {
         if (config.has('debug')) {
             console.log('⤴ useUp() accessible vars :', exported);
         }
-
-        if (override) {
-            UpSingleton = () => {
-                return exported;
-            };
-        }
     }
 
-    return UpSingleton();
-};
-
-export default useUp;
+    return exported;
+}

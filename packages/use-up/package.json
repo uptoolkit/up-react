@@ -2,21 +2,12 @@
   "name": "use-up",
   "type": "module",
   "description": "React helper to setup multiple useful plugins in one setup. This is a part of the Up Toolkit.",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "typings": "types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js"
-    }
-  },
-  "version": "1.0.10",
+  "main": "dist/index.es.js",
+  "version": "1.0.19",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "types": ""
+    "serve": "vite preview"
   },
   "dependencies": {
     "@bundled-es-modules/axios": "^0.21.1",
