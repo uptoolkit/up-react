@@ -2,8 +2,9 @@
   "name": "up-react",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
   "version": "1.0.10",
-  "main": "dist/index.umd.js",
+  "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "sideEffects": false,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -16,21 +17,22 @@
     "js-form-helper": "^1.0.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-use": "^17.3.1"
+    "react-use": "^17.3.1",
+    "use-up": "^1.0.39"
   },
   "optionalDependencies": {
-    "@reduxjs/toolkit": "^1.6.2",
-    "axios-es6": "^0.11.1",
-    "tailwindcss": "^2.2.16",
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.4",
+    "@reduxjs/toolkit": "^1.6.2",
     "@tailwindcss/forms": "^0.3.4",
     "antd": "^4.16.13",
+    "axios-es6": "^0.11.1",
     "collect.js": "^4.29.0",
-    "lodash": "^4.17.21",
     "daisyui": "^1.14.4",
+    "dayjs": "^1.10.7",
+    "lodash": "^4.17.21",
     "react-router-dom": "^5.3.0",
-    "dayjs": "^1.10.7"
+    "tailwindcss": "^2.2.16"
   },
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.0",

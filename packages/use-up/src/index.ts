@@ -1,6 +1,5 @@
 import Config from 'js-config-helper';
-/// <reference path="axios.d.ts" />
-import * as axios from "axios";
+import axios from "axios";
 import I18n, {createI18n} from "@cherrypulp/i18n";
 import {Store} from "@reduxjs/toolkit";
 import {message as messageAnt, notification as notificationAnt} from 'antd';
@@ -61,7 +60,7 @@ export let exported:exportedVars|any;
  *
  * @param options
  */
-export function useUp(options?: UpOptions) {
+export function useUp(options?: UpOptions):exportedVars|any {
 
     if (options) {
 
@@ -143,5 +142,3 @@ export function useUp(options?: UpOptions) {
 
     return exported;
 }
-
-export default useUp;

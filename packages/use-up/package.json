@@ -2,20 +2,35 @@
   "name": "use-up",
   "description": "React helper to setup multiple useful plugins in one setup. This is a part of the Up Toolkit.",
   "main": "dist/index.umd.js",
+  "exports": {
+    ".": {
+      "module": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.umd.js"
+    },
+    "./": "./"
+  },
   "module": "dist/index.es.js",
-  "version": "1.0.28",
+  "browser": "dist/index.cjs.js",
+  "unpkg": "dist/index.cjs.js",
+  "jsdelivr": "dist/index.cjs.js",
+  "typings": "dist/src/index.d.ts",
+  "sideEffects": false,
+  "version": "1.0.39",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "types": "npx tsc --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "dependencies": {
     "@cherrypulp/i18n": "^1.4.2",
     "@reduxjs/toolkit": "^1.6.2",
     "antd": "^4.16.13",
+    "axios": "^0.23.0",
     "axios-es6": "^0.11.1",
     "js-config-helper": "^1.0.4",
-    "js-form-helper": "^1.0.8"
+    "js-form-helper": "^1.0.9"
   },
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.0",

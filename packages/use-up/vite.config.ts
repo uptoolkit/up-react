@@ -5,12 +5,13 @@ import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), dts],
+    plugins: [react(), dts()],
     build: {
         lib:
             {
-                entry: path.resolve(__dirname, 'src/useUp.ts'),
+                entry: path.resolve(__dirname, 'src/index.ts'),
                 name: 'useUp',
+                formats: ["cjs", 'es', 'umd'],
                 fileName: (format) => `index.${format}.js`
             }
         ,
@@ -22,15 +23,19 @@ export default defineConfig({
                 "react",
                 "react-dom",
                 "classnames",
-                "antd"
+                "antd",
+                "js-config-helper",
+                "js-form-helper"
             ],
             output: {
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
-                    axios: 'axios',
-                    react: 'React',
-                    antd: 'antd',
+                    'axios': 'axios',
+                    'js-config-helper': 'Config',
+                    'js-form-helper': 'Form',
+                    'react': 'React',
+                    'antd': 'antd',
                     "react-dom": 'ReactDOM'
                 }
             }

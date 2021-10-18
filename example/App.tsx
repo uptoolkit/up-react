@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import './App.css'
-import {useUp} from '../packages/use-up/src/useUp';
+import {useUp} from '../packages/use-up';
 
 function App() {
     const [count, setCount] = useState(0);

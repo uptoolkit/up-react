@@ -1,72 +1,7 @@
-import axios$1 from "axios";
-import { message as message$1, notification as notification$1 } from "antd";
-function getDefaultExportFromCjs(x) {
-  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
-}
-var jsConfigHelper = {};
-(function(exports) {
-  exports.__esModule = true;
-  var Config2 = function() {
-    function Config3(options) {
-      this.options = options;
-    }
-    Config3.prototype.get = function(key, def) {
-      var keys = key.split(".");
-      var source = this.options;
-      keys.forEach(function(k) {
-        if (source) {
-          source = source[k];
-        }
-      });
-      if (!source && def) {
-        if (typeof def === "function") {
-          source = def();
-        } else {
-          source = def;
-        }
-      }
-      return source;
-    };
-    Config3.prototype.has = function(key) {
-      var keys = key.split(".");
-      var source = this.options;
-      keys.forEach(function(k) {
-        if (source) {
-          source = source[k];
-        }
-      });
-      return !!source;
-    };
-    Config3.prototype.set = function(key, value) {
-      var keys = key.split(".");
-      var source = this.options;
-      keys.forEach(function(k) {
-        if (source) {
-          source = source[k];
-        }
-      });
-      if (source) {
-        source = value;
-      }
-      return source;
-    };
-    Config3.prototype.all = function() {
-      return this.options;
-    };
-    return Config3;
-  }();
-  exports["default"] = Config2;
-})(jsConfigHelper);
-var Config = /* @__PURE__ */ getDefaultExportFromCjs(jsConfigHelper);
-var __defProp$1 = Object.defineProperty;
-var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value
-}) : obj[key] = value;
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => {
-  __defNormalProp$1(obj, typeof key !== "symbol" ? key + "" : key, value);
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
 function _mergeNamespaces(n, m) {
@@ -197,7 +132,33 @@ function appendToFormData(formData, key, value) {
   }
   objectToFormData(value, formData, key);
 }
-const reservedFieldNames = ["__http", "__options", "__validateRequestType", "clear", "data", "delete", "errors", "getError", "getErrors", "hasError", "initial", "onFail", "only", "onSuccess", "patch", "populate", "post", "processing", "successful", "put", "reset", "submit", "withData", "withErrors", "withOptions"];
+const reservedFieldNames = [
+  "__http",
+  "__options",
+  "__validateRequestType",
+  "clear",
+  "data",
+  "delete",
+  "errors",
+  "getError",
+  "getErrors",
+  "hasError",
+  "initial",
+  "onFail",
+  "only",
+  "onSuccess",
+  "patch",
+  "populate",
+  "post",
+  "processing",
+  "successful",
+  "put",
+  "reset",
+  "submit",
+  "withData",
+  "withErrors",
+  "withOptions"
+];
 function guardAgainstReservedFieldName(fieldName) {
   if (reservedFieldNames.indexOf(fieldName) !== -1) {
     throw new Error(`Field name ${fieldName} isn't allowed to be used in a Form or Errors instance.`);
@@ -624,8 +585,8 @@ Rule.prototype = {
     this._setValidatingData(attribute, inputValue, ruleValue);
     if (typeof callback === "function") {
       this.callback = callback;
-      var handleResponse = function(passes, message2) {
-        _this.response(passes, message2);
+      var handleResponse = function(passes, message) {
+        _this.response(passes, message);
       };
       if (this.async) {
         return this._apply(inputValue, ruleValue, attribute, handleResponse);
@@ -676,10 +637,10 @@ Rule.prototype = {
     }
     return "string";
   },
-  response: function(passes, message2) {
+  response: function(passes, message) {
     this.passes = passes === void 0 || passes === true;
-    this._customMessage = message2;
-    this.callback(this.passes, message2);
+    this._customMessage = message;
+    this.callback(this.passes, message);
   },
   setValidator: function(validator2) {
     this.validator = validator2;
@@ -693,7 +654,17 @@ Rule.prototype = {
 };
 var manager = {
   asyncRules: [],
-  implicitRules: ["required", "required_if", "required_unless", "required_with", "required_with_all", "required_without", "required_without_all", "accepted", "present"],
+  implicitRules: [
+    "required",
+    "required_if",
+    "required_unless",
+    "required_with",
+    "required_with_all",
+    "required_without",
+    "required_without_all",
+    "accepted",
+    "present"
+  ],
   make: function(name, validator2) {
     var async2 = this.isAsync(name);
     var rule = new Rule(name, rules[name], async2);
@@ -726,9 +697,9 @@ var manager = {
     this.registerImplicit(name, fn);
     this.asyncRules.push(name);
   },
-  registerMissedRuleValidator: function(fn, message2) {
+  registerMissedRuleValidator: function(fn, message) {
     missedRuleValidator = fn;
-    missedRuleMessage = message2;
+    missedRuleMessage = message;
   }
 };
 var rules_1 = manager;
@@ -863,13 +834,13 @@ Messages$1.prototype = {
       return rule.customMessage;
     }
     var template = this._getTemplate(rule);
-    var message2;
+    var message;
     if (Attributes$1.replacements[rule.name]) {
-      message2 = Attributes$1.replacements[rule.name].apply(this, [template, rule]);
+      message = Attributes$1.replacements[rule.name].apply(this, [template, rule]);
     } else {
-      message2 = this._replacePlaceholders(rule, template, {});
+      message = this._replacePlaceholders(rule, template, {});
     }
-    return message2;
+    return message;
   },
   _getTemplate: function(rule) {
     var messages2 = this.messages;
@@ -892,16 +863,16 @@ Messages$1.prototype = {
     return template;
   },
   _replacePlaceholders: function(rule, template, data) {
-    var message2, attribute;
+    var message, attribute;
     data.attribute = this._getAttributeName(rule.attribute);
     data[rule.name] = data[rule.name] || rule.getParameters().join(",");
     if (typeof template === "string" && typeof data === "object") {
-      message2 = template;
+      message = template;
       for (attribute in data) {
-        message2 = message2.replace(new RegExp(":" + attribute, "g"), data[attribute]);
+        message = message.replace(new RegExp(":" + attribute, "g"), data[attribute]);
       }
     }
-    return message2;
+    return message;
   }
 };
 var messages = Messages$1;
@@ -912,12 +883,12 @@ var container = {
   _set: function(lang2, rawMessages) {
     this.messages[lang2] = rawMessages;
   },
-  _setRuleMessage: function(lang2, attribute, message2) {
+  _setRuleMessage: function(lang2, attribute, message) {
     this._load(lang2);
-    if (message2 === void 0) {
-      message2 = this.messages[lang2].def;
+    if (message === void 0) {
+      message = this.messages[lang2].def;
     }
-    this.messages[lang2][attribute] = message2;
+    this.messages[lang2][attribute] = message;
   },
   _load: function(lang2) {
     if (!this.messages[lang2]) {
@@ -943,12 +914,12 @@ var Errors$1 = function() {
 };
 Errors$1.prototype = {
   constructor: Errors$1,
-  add: function(attribute, message2) {
+  add: function(attribute, message) {
     if (!this.has(attribute)) {
       this.errors[attribute] = [];
     }
-    if (this.errors[attribute].indexOf(message2) === -1) {
-      this.errors[attribute].push(message2);
+    if (this.errors[attribute].indexOf(message) === -1) {
+      this.errors[attribute].push(message);
     }
   },
   get: function(attribute) {
@@ -1067,8 +1038,8 @@ Validator.prototype = {
     };
     fails = fails || function() {
     };
-    var failsOne = function(rule2, message2) {
-      _this._addFailure(rule2, message2);
+    var failsOne = function(rule2, message) {
+      _this._addFailure(rule2, message);
     };
     var resolvedAll = function(allPassed) {
       if (allPassed) {
@@ -1347,28 +1318,28 @@ Validator.setAttributeFormatter = function(func) {
 Validator.stopOnError = function(attributes2) {
   this.prototype.stopOnAttributes = attributes2;
 };
-Validator.register = function(name, fn, message2, fnReplacement) {
+Validator.register = function(name, fn, message, fnReplacement) {
   var lang2 = Validator.getDefaultLang();
   Rules.register(name, fn);
-  Lang._setRuleMessage(lang2, name, message2);
+  Lang._setRuleMessage(lang2, name, message);
 };
-Validator.registerImplicit = function(name, fn, message2, fnReplacement) {
+Validator.registerImplicit = function(name, fn, message, fnReplacement) {
   var lang2 = Validator.getDefaultLang();
   Rules.registerImplicit(name, fn);
-  Lang._setRuleMessage(lang2, name, message2);
+  Lang._setRuleMessage(lang2, name, message);
 };
-Validator.registerAsync = function(name, fn, message2, fnReplacement) {
+Validator.registerAsync = function(name, fn, message, fnReplacement) {
   var lang2 = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
-  Lang._setRuleMessage(lang2, name, message2);
+  Lang._setRuleMessage(lang2, name, message);
 };
-Validator.registerAsyncImplicit = function(name, fn, message2) {
+Validator.registerAsyncImplicit = function(name, fn, message) {
   var lang2 = Validator.getDefaultLang();
   Rules.registerAsyncImplicit(name, fn);
-  Lang._setRuleMessage(lang2, name, message2);
+  Lang._setRuleMessage(lang2, name, message);
 };
-Validator.registerMissedRuleValidator = function(fn, message2) {
-  Rules.registerMissedRuleValidator(fn, message2);
+Validator.registerMissedRuleValidator = function(fn, message) {
+  Rules.registerMissedRuleValidator(fn, message);
 };
 var validator = Validator;
 var Validator$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ _mergeNamespaces({
@@ -1453,9 +1424,7 @@ class Form {
     Object.keys(data).forEach((field) => {
       guardAgainstReservedFieldName(field);
       if (this.hasOwnProperty(field)) {
-        merge(this, {
-          [field]: data[field]
-        });
+        merge(this, { [field]: data[field] });
       }
     });
     return this;
@@ -1568,229 +1537,4 @@ class Form {
     return new Form().withData(data);
   }
 }
-var __defProp = Object.defineProperty;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value
-}) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-class I18n {
-  __(key, data = null, locale = null) {
-    return this.get(key, data, locale);
-  }
-  add(translations, locale = null) {
-    if (!locale) {
-      locale = this.locale;
-    }
-    this.translations.set(locale, Object.assign({}, this.translations.get(locale), translations));
-  }
-  choice(key, count = 1, data = null, locale = null) {
-    if (!locale) {
-      locale = this.locale;
-    }
-    let translation = null;
-    const translations = this.fetch(`${locale}.${key}`);
-    if (!translations) {
-      if (this.options.storeNotFounds) {
-        window[this.options.globalName]._notFounds.push(key);
-      }
-      if (this.forceDisplayKeys) {
-        if (data) {
-          return this.constructor.replaceString(key, data);
-        }
-        return key;
-      }
-      return "";
-    }
-    const parts = translations.split("|");
-    parts.some((p) => {
-      translation = this.constructor.matchChoiceCount(p, count);
-      return translation;
-    });
-    if (translation === false) {
-      translation = count > 1 ? parts[1] : parts[0];
-    }
-    return this._returnString(key, translation, data);
-  }
-  constructor(translations = {}, defaultLocale = "en", options = {}) {
-    options = Object.assign({
-      globalName: "translations",
-      forceDisplayKeys: true,
-      storeNotFounds: true
-    }, options);
-    this.forceDisplayKeys = options.forceDisplayKeys;
-    this.locale = defaultLocale;
-    this.translations = new Map();
-    if (options.globalName) {
-      if (window[options.globalName] === void 0) {
-        window[options.globalName] = {};
-      }
-      translations = Object.assign({}, window[options.globalName], translations);
-      if (options.storeNotFounds) {
-        window[options.globalName]._notFounds = [];
-      }
-    }
-    this.set(translations, this.locale);
-    this.options = options;
-  }
-  static decodeHtml(source) {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = source;
-    return txt.value;
-  }
-  fetch(key) {
-    const keys = key.split(".");
-    const locale = keys.shift();
-    let source = this.translations.get(locale);
-    keys.forEach((k) => {
-      if (source) {
-        source = source[k];
-      }
-    });
-    return source;
-  }
-  get(key, data = null, locale = null) {
-    if (typeof data === "string") {
-      locale = data;
-      data = null;
-    }
-    if (!locale) {
-      locale = this.locale;
-    }
-    const content = this.fetch(`${locale}.${key}`);
-    return this._returnString(key, content, data);
-  }
-  has(key, locale = null) {
-    if (!locale) {
-      locale = this.locale;
-    }
-    return this.fetch(`${locale}.${key}`) !== void 0;
-  }
-  static matchChoiceCount(translation, count) {
-    const match = translation.match(/^[{[]([^[\]{}]*)[}\]](.*)/);
-    if (!match) {
-      return false;
-    }
-    if (match[1].includes(",")) {
-      const [from, to] = match[1].split(",", 2);
-      if (to === "*" && count >= from || from === "*" && count <= to || count >= from && count <= to) {
-        return match[2];
-      }
-    }
-    return parseInt(match[1], 10) === count ? match[2] : null;
-  }
-  static replaceString(translation, data) {
-    if (!data) {
-      return translation;
-    }
-    return Object.entries(data).reduce((acc, [key, value]) => {
-      value = String(value);
-      const placeholder = key.toLowerCase();
-      return acc.replace(`:${placeholder}`, value).replace(`:${placeholder.toUpperCase()}`, value.toUpperCase()).replace(`:${placeholder.charAt(0).toUpperCase()}${placeholder.slice(1)}`, `${value.charAt(0).toUpperCase()}${value.slice(1)}`);
-    }, translation);
-  }
-  _returnString(key, content, data) {
-    if (typeof content !== "string" && this.forceDisplayKeys) {
-      content = key;
-      if (this.options.storeNotFounds) {
-        window[this.options.globalName]._notFounds.push(key);
-      }
-    }
-    if (data) {
-      content = this.constructor.replaceString(content, data);
-    }
-    return this.constructor.decodeHtml(content);
-  }
-  setLocale(locale) {
-    this.locale = locale;
-  }
-  set(translations, locale = null) {
-    if (!locale) {
-      locale = this.locale;
-    }
-    this.translations.set(locale, translations);
-  }
-}
-function createI18n(translations = {}, defaultLocale = "en", options = {}) {
-  return new I18n(translations, defaultLocale, options);
-}
-let api;
-let http;
-let config;
-let i18n;
-let store;
-let form;
-let formApi;
-let message;
-let notification;
-let exported;
-function useUp(options) {
-  if (options) {
-    config = new Config(options);
-    http = config.get("override.http") || axios$1.create();
-    api = config.get("override") || axios$1.create({
-      baseURL: config.get("api.url")
-    });
-    if (!config.has("exclude.form")) {
-      form = function(data, options2) {
-        return new Form(data, __spreadValues(__spreadValues({}, {
-          http
-        }), options2));
-      };
-      formApi = function(data, options2) {
-        return new Form(data, __spreadValues(__spreadValues({}, {
-          http: api
-        }), options2));
-      };
-    }
-    if (!config.has("exclude.message")) {
-      message = config.get("override.message") || message$1;
-    }
-    if (!config.has("exclude.notification")) {
-      notification = config.get("override.notification") || notification$1;
-    }
-    if (!config.has("exclude.i18n")) {
-      const translations = options.translations[options.locale];
-      i18n = createI18n(translations, options.locale, {
-        globalName: "translations",
-        forceDisplayKeys: true,
-        storeNotFounds: true
-      });
-    }
-    store = config.get("override.store");
-    exported = {
-      config,
-      api,
-      http,
-      i18n,
-      form,
-      formApi,
-      store,
-      t: i18n == null ? void 0 : i18n.__.bind(i18n),
-      __: i18n == null ? void 0 : i18n.__.bind(i18n),
-      choice: i18n == null ? void 0 : i18n.choice.bind(i18n),
-      message,
-      notification
-    };
-    if (config.has("debug")) {
-      console.log("\u2934 useUp() accessible vars :", exported);
-    }
-  }
-  return exported;
-}
-export { useUp };
+export { Errors$2 as Errors, Form, Form as default };

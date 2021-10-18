@@ -1,1 +1,5 @@
-export {useUp} from "../packages/use-up/src/useUp";
+import {useUp} from "use-up"
+
+export {
+    useUp
+}
