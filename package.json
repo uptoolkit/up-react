@@ -6,7 +6,7 @@
   "module": "dist/index.es.js",
   "exports": {
     ".": {
-      "import": "./dist/index.umd.js",
+      "import": "./dist/index.es.js",
       "require": "./dist/index.cjs.js"
     }
   },
