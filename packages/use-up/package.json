@@ -16,7 +16,7 @@
   "jsdelivr": "dist/index.cjs.js",
   "typings": "dist/src/index.d.ts",
   "sideEffects": false,
-  "version": "1.0.43",
+  "version": "1.0.44",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
