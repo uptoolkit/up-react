@@ -11,14 +11,11 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@cherrypulp/i18n": "^1.4.3",
     "core-js": "^3.16.1",
-    "js-config-helper": "^1.0.4",
-    "js-form-helper": "^1.0.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-use": "^17.3.1",
-    "use-up": "^1.0.39"
+    "use-up": "^1.0.40"
   },
   "optionalDependencies": {
     "@headlessui/react": "^1.4.0",
