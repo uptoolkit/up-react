@@ -1,5 +1,6 @@
 import Config from 'js-config-helper';
-import axios from "axios";
+/// <reference path="axios.d.ts" />
+import * as axios from 'axios';
 import I18n, {createI18n} from "@cherrypulp/i18n";
 import {Store} from "@reduxjs/toolkit";
 import {message as messageAnt, notification as notificationAnt} from 'antd';

@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "module": "UMD",
+    "module": "ES6",
     "moduleResolution": "node",
     "isolatedModules": true,
     "jsx": "react-jsx"

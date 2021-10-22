@@ -51,4 +51,4 @@ export declare let exported: exportedVars | any;
  *
  * @param options
  */
-export declare function useUp(options?: UpOptions): any;
+export declare function useUp(options?: UpOptions): exportedVars | any;

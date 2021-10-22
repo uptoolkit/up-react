@@ -15,7 +15,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 import Config from "js-config-helper";
-import axios from "axios";
+import * as axios from "axios";
 import { message as message$1, notification as notification$1 } from "antd";
 import Form from "js-form-helper";
 class I18n {
@@ -35,7 +35,7 @@ class I18n {
     let translation = null;
     const translations = this.fetch(`${locale}.${key}`);
     if (!translations) {
-      if (this.options.storeNotFounds) {
+      if (typeof window !== "undefined" && this.options.storeNotFounds) {
         window[this.options.globalName]._notFounds.push(key);
       }
       if (this.forceDisplayKeys) {
@@ -65,7 +65,7 @@ class I18n {
     this.forceDisplayKeys = options.forceDisplayKeys;
     this.locale = defaultLocale;
     this.translations = new Map();
-    if (options.globalName) {
+    if (typeof window !== "undefined" && options.globalName) {
       if (window[options.globalName] === void 0) {
         window[options.globalName] = {};
       }
@@ -136,7 +136,7 @@ class I18n {
   _returnString(key, content, data) {
     if (typeof content !== "string" && this.forceDisplayKeys) {
       content = key;
-      if (this.options.storeNotFounds) {
+      if (this.options.storeNotFounds && typeof window !== "undefined") {
         window[this.options.globalName]._notFounds.push(key);
       }
     }
