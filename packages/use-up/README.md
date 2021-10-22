@@ -36,7 +36,7 @@ There is also a Next.js boilerplate available here : [https://github.com/uptoolk
 In your React project just make :
 
 ````bash
-yarn add up-react #or npm i use-up --save
+yarn add use-up #or npm i use-up --save
 ````
 
 Then in your main app (likely very soon in your instanciation), do :
@@ -59,8 +59,8 @@ useUp({
     },
     url: '/'
   },
-  storeMode: 'reactive', // could be reactive|vuex
-  // store: store, // if defined you can define your vuex store if you choose vuex
+  storeMode: 'reactive', // could be reactive|redux
+  // store: store, // if defined you can define your redux store if you choose redux
   api: {
     url: 'https://uptoolkit/demo/api', // Replace with your api endpoint
   },
@@ -149,8 +149,8 @@ useUp({
 
 You can get full documentation or check our complete example :
 
-- [https://use-up.uptoolkit.com](https://vue.uptoolkit.com)
-- [https://github.com/uptoolkit/use-up/tree/main/example](https://github.com/uptoolkit/use-up/tree/main/example)
+- [https://uptoolkit.com](https://uptoolkit.com)
+- [https://github.com/uptoolkit/use-up/tree/main/example](https://github.com/uptoolkit/up-react/tree/main/example)
 
 ### Discover the whole ecosystem of Up Toolkit
 
@@ -164,12 +164,13 @@ For more information go to :
 
 Everyone can contribute and propose any components or post an issues, make a suggestion :
 
-- [https://github.com/uptoolkit/up-react/issues](https://github.com/uptoolkit/use-up/issues)
+- [https://github.com/uptoolkit/up-react/issues](https://github.com/uptoolkit/up-react/issues)
 - [You can also share your package in Awesome Up](https://github.com/uptoolkit)
 
 # To dos :
 
 - [x] Testing using Jest
+- [x] Add Apollog GraphQL Client helper
 - [x] Customising AntDesign style
 - [x] Documenting code
 - [x] Setting up Storybook
