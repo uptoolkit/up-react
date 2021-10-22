@@ -1,4 +1,4 @@
-# Up React
+# Use Up (part of Up React)
 
 ## Why ?
 
@@ -39,7 +39,9 @@ In your React project just make :
 yarn add use-up #or npm i use-up --save
 ````
 
-Then in your main app (likely very soon in your instanciation), do :
+REM : for more tools to use => you can checkout also up-react [https://github.com/uptoolkit/up-react](https://github.com/uptoolkit/up-react)
+
+Then in your main app (likely very soon in your app instanciation), do :
 
 ````javascript
 // this will be likely in your main.js or pages/__app.js in Next
