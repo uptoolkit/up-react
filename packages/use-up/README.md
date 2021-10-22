@@ -164,7 +164,7 @@ For more information go to :
 
 Everyone can contribute and propose any components or post an issues, make a suggestion :
 
-- [https://github.com/uptoolkit/use-up/issues](https://github.com/uptoolkit/use-up/issues)
+- [https://github.com/uptoolkit/up-react/issues](https://github.com/uptoolkit/use-up/issues)
 - [You can also share your package in Awesome Up](https://github.com/uptoolkit)
 
 # To dos :
