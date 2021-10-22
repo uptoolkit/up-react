@@ -293,10 +293,10 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@cherrypulp/i18n@^1.4.5":
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/@cherrypulp/i18n/-/i18n-1.4.5.tgz#ec5bc43babc40fe81e1c3400bc08ff9d55ee9f29"
-  integrity sha512-ZuC6MTR151cihlkS8vzGOMr+hOzGBB6A4ppLyY4vD+Sk2by13crdFq+a/uKwba6L6iLjOg4mBoqCXumCxnFdrw==
+"@cherrypulp/i18n@^1.4.6":
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/@cherrypulp/i18n/-/i18n-1.4.6.tgz#ff4ebca17dd257159a1369f09b75e06a25a40ed4"
+  integrity sha512-ETg19vUsvubJ0LDoaXW9/ThSm2WGxdaSknbxtIU06l2T5FPCG7xi9X+NJtv62UhNoFTP0mihyWfY0CncJ2flmw==
 
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.0"

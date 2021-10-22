@@ -78,7 +78,7 @@ class I18n {
     this.options = options;
   }
   static decodeHtml(source) {
-    if (typeof document === "undefined") {
+    if (typeof document !== "undefined") {
       const txt = document.createElement("textarea");
       txt.innerHTML = source;
       return txt.value;
