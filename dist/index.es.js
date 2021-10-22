@@ -1649,9 +1649,12 @@ class I18n {
     this.options = options;
   }
   static decodeHtml(source) {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = source;
-    return txt.value;
+    if (typeof document === "undefined") {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = source;
+      return txt.value;
+    }
+    return source;
   }
   fetch(key) {
     const keys = key.split(".");
