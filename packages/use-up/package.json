@@ -16,7 +16,7 @@
   "jsdelivr": "dist/index.cjs.js",
   "typings": "dist/src/index.d.ts",
   "sideEffects": false,
-  "version": "1.0.41",
+  "version": "1.0.43",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -24,7 +24,7 @@
     "types": "npx tsc --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "dependencies": {
-    "@cherrypulp/i18n": "^1.4.4",
+    "@cherrypulp/i18n": "^1.4.5",
     "@reduxjs/toolkit": "^1.6.2",
     "antd": "^4.16.13",
     "axios": "^0.23.0",

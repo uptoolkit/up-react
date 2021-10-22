@@ -152,7 +152,7 @@ useUp({
 You can get full documentation or check our complete example :
 
 - [https://uptoolkit.com](https://uptoolkit.com)
-- [https://github.com/uptoolkit/use-up/tree/main/example](https://github.com/uptoolkit/up-react/tree/main/example)
+- [https://github.com/uptoolkit/up-react/tree/main/example](https://github.com/uptoolkit/up-react/tree/main/example)
 
 ### Discover the whole ecosystem of Up Toolkit
 
