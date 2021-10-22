@@ -1,4 +1,4 @@
-import axios$1 from "axios";
+import * as axios$1 from "axios";
 import { message as message$1, notification as notification$1 } from "antd";
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -1606,7 +1606,7 @@ class I18n {
     let translation = null;
     const translations = this.fetch(`${locale}.${key}`);
     if (!translations) {
-      if (this.options.storeNotFounds) {
+      if (typeof window !== "undefined" && this.options.storeNotFounds) {
         window[this.options.globalName]._notFounds.push(key);
       }
       if (this.forceDisplayKeys) {
@@ -1636,7 +1636,7 @@ class I18n {
     this.forceDisplayKeys = options.forceDisplayKeys;
     this.locale = defaultLocale;
     this.translations = new Map();
-    if (options.globalName) {
+    if (typeof window !== "undefined" && options.globalName) {
       if (window[options.globalName] === void 0) {
         window[options.globalName] = {};
       }
@@ -1707,7 +1707,7 @@ class I18n {
   _returnString(key, content, data) {
     if (typeof content !== "string" && this.forceDisplayKeys) {
       content = key;
-      if (this.options.storeNotFounds) {
+      if (this.options.storeNotFounds && typeof window !== "undefined") {
         window[this.options.globalName]._notFounds.push(key);
       }
     }
