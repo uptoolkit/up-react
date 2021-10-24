@@ -4,6 +4,7 @@ import * as axios from 'axios';
 import { createI18n } from "@cherrypulp/i18n";
 import { message as messageAnt, notification as notificationAnt } from 'antd';
 import Form from "js-form-helper";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 export let api;
 export let http;
 export let config;
@@ -13,6 +14,7 @@ export let form;
 export let formApi;
 export let message;
 export let notification;
+export let graphqlClient;
 export let exported;
 /**
  * useUp helper function
@@ -65,6 +67,17 @@ export function useUp(options) {
                 storeNotFounds: true, // store every key that are not found in a variable called "_notFounds" inside the global
             });
         }
+        if (!config.has('exclude.graphql')) {
+            if (config.has('graphql.client')) {
+                graphqlClient = config.get('graphql.client');
+            }
+            else if (config.has('graphql.url')) {
+                graphqlClient = new ApolloClient({
+                    uri: config.get('graphql.url'),
+                    cache: new InMemoryCache()
+                });
+            }
+        }
         store = config.get('override.store');
         exported = {
             config,
@@ -74,6 +87,7 @@ export function useUp(options) {
             form,
             formApi,
             store,
+            graphqlClient,
             t: i18n?.__.bind(i18n),
             __: i18n?.__.bind(i18n),
             choice: i18n?.choice.bind(i18n),
