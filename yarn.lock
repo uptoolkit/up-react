@@ -3478,10 +3478,10 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-js-config-helper@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.0.4.tgz#3bc2253632a25df3dc4e8d5601fd11e359e7bf93"
-  integrity sha512-Ax4dkGGIi2byVnpV0Cqi+M6TpuxM6EYLBVG6bACeQXuenzSc49Eb0q8UM7zYltYios1Sd53IHQHwXSr1y7Q38w==
+js-config-helper@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.0.5.tgz#9b4f2c158fae4c16bf0d03d3816fa93728fb3f9d"
+  integrity sha512-q1hMaGr6ZfO1bT1VpiWmmEXuoANKfpHJikwt3ckn4BMYcaMd8/Bzoyq5UqMSwZD//q5QNuuEqg2pUYu+QW3XPQ==
 
 js-cookie@^2.2.1:
   version "2.2.1"
@@ -6254,17 +6254,19 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-up@^1.0.46:
-  version "1.0.46"
-  resolved "https://registry.yarnpkg.com/use-up/-/use-up-1.0.46.tgz#0ea4a197bffed056aa88cce67639c4e2a0a04707"
-  integrity sha512-HvF1xR4orw19yZEluEQCDF6iO9ecQW1FodEAOa0twykQlUgi6OBToO+sN3I0UIXpx3stm/dZ00ZGob5qgzAAiw==
+use-up@^1.0.48:
+  version "1.0.48"
+  resolved "https://registry.yarnpkg.com/use-up/-/use-up-1.0.48.tgz#e71225a96b97bad2d06f5b6d145d1591e60513bc"
+  integrity sha512-KpdYky9es6PA2B8fclSS/XcfA7KvSvO9Mtdv5+Jwk0SkbtxCmVM+R9MZ6rxCDXdCOcVtUuhz8mBE0PlZ1T0ngA==
   dependencies:
+    "@apollo/client" "^3.4.16"
     "@cherrypulp/i18n" "^1.4.6"
     "@reduxjs/toolkit" "^1.6.2"
     antd "^4.16.13"
     axios "^0.23.0"
     axios-es6 "^0.11.1"
-    js-config-helper "^1.0.4"
+    graphql "^15.6.1"
+    js-config-helper "^1.0.5"
     js-form-helper "^1.0.9"
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
