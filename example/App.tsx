@@ -2,6 +2,7 @@ import {useState} from 'react'
 import './App.css'
 import {useUp} from '../packages/use-up';
 import {ApolloProvider} from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 
 function App() {
     const [count, setCount] = useState(0);
@@ -13,7 +14,6 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <h1>{config.get('project.name')}</h1>
-
                     <p>
                         {__('hello')}
                     </p>

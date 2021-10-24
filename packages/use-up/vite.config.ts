@@ -10,7 +10,7 @@ export default defineConfig({
         lib:
             {
                 entry: path.resolve(__dirname, 'src/index.ts'),
-                name: 'useUp',
+                name: 'use-up',
                 formats: ["cjs", 'es', 'umd'],
                 fileName: (format) => `index.${format}.js`
             }
@@ -42,3 +42,4 @@ export default defineConfig({
         }
     }
 })
+

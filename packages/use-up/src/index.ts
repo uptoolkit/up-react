@@ -38,6 +38,10 @@ export interface UpOptions {
     api?: {
         url: string; // Url endpoint of your API
     };
+    graphql?: {
+        url?: string; // Url endpoint of your API
+        client?: string; // Url endpoint of your API
+    };
     translations?: Record<string, object | string>;
     locale?: string;
     locales?: string[];

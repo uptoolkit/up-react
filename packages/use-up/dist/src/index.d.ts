@@ -28,6 +28,10 @@ export interface UpOptions {
     api?: {
         url: string;
     };
+    graphql?: {
+        url?: string;
+        client?: string;
+    };
     translations?: Record<string, object | string>;
     locale?: string;
     locales?: string[];
