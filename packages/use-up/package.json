@@ -31,7 +31,7 @@
     "axios": "^0.23.0",
     "axios-es6": "^0.11.1",
     "graphql": "^15.6.1",
-    "js-config-helper": "^1.0.5",
+    "js-config-helper": "^1.1.0",
     "js-form-helper": "^1.0.9"
   },
   "devDependencies": {

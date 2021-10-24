@@ -3364,10 +3364,10 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-js-config-helper@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.0.5.tgz#9b4f2c158fae4c16bf0d03d3816fa93728fb3f9d"
-  integrity sha512-q1hMaGr6ZfO1bT1VpiWmmEXuoANKfpHJikwt3ckn4BMYcaMd8/Bzoyq5UqMSwZD//q5QNuuEqg2pUYu+QW3XPQ==
+js-config-helper@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/js-config-helper/-/js-config-helper-1.1.0.tgz#c246ccf0901d33f7a7d66a95faee1599b35667ab"
+  integrity sha512-qSo1m9VIpeZgaYLPtbJo3ZcQZ9R/ule6GAM38c79Cy9/A3BSfsCIx5J+WaZta/cLKCkRyJwWHD965aBKo6VxWg==
 
 js-form-helper@^1.0.9:
   version "1.0.9"

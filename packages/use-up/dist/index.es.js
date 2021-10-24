@@ -14,7 +14,7 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import Config from "js-config-helper";
+import { Config } from "js-config-helper";
 import * as axios from "axios";
 import { message as message$1, notification as notification$1 } from "antd";
 import Form from "js-form-helper";

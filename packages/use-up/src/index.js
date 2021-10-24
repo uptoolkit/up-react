@@ -1,4 +1,4 @@
-import Config from 'js-config-helper';
+import { Config } from 'js-config-helper';
 /// <reference path="axios.d.ts" />
 import * as axios from 'axios';
 import { createI18n } from "@cherrypulp/i18n";

@@ -1,4 +1,4 @@
-import Config from 'js-config-helper';
+import {Config} from 'js-config-helper';
 /// <reference path="axios.d.ts" />
 import * as axios from 'axios';
 import I18n, {createI18n} from "@cherrypulp/i18n";
@@ -9,10 +9,7 @@ import {NotificationInstance} from "antd/es/notification";
 import Form from "js-form-helper";
 import {
     ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-    useQuery,
-    gql
+    InMemoryCache
 } from "@apollo/client";
 
 export let api: object | null | any;
