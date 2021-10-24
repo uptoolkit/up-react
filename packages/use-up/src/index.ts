@@ -7,6 +7,13 @@ import {message as messageAnt, notification as notificationAnt} from 'antd';
 import {MessageInstance} from "antd/lib/message";
 import {NotificationInstance} from "antd/es/notification";
 import Form from "js-form-helper";
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+    useQuery,
+    gql
+} from "@apollo/client";
 
 export let api: object | null | any;
 export let http: object | null | any;
@@ -17,6 +24,7 @@ export let form: any | null;
 export let formApi: any | null;
 export let message: MessageInstance | null;
 export let notification: NotificationInstance | null;
+export let graphqlClient: ApolloClient<any> | any;
 
 export interface UpOptions {
     debug?: boolean,
@@ -47,21 +55,25 @@ export interface exportedVars {
     form: boolean;
     formApi: boolean;
     store?: boolean;
-    t?(key: string, data?: object, lang?: string) : string|any;
-    __?(key: string, data?: object, lang?: string): string|any;
-    choice?(key: string, count?: number, data?: any, locale?: string): string|any;
-    message?:MessageInstance;
-    notification?:NotificationInstance;
+
+    t?(key: string, data?: object, lang?: string): string | any;
+
+    __?(key: string, data?: object, lang?: string): string | any;
+
+    choice?(key: string, count?: number, data?: any, locale?: string): string | any;
+
+    message?: MessageInstance;
+    notification?: NotificationInstance;
 }
 
-export let exported:exportedVars|any;
+export let exported: exportedVars | any;
 
 /**
  * useUp helper function
  *
  * @param options
  */
-export function useUp(options?: UpOptions):exportedVars|any {
+export function useUp(options?: UpOptions): exportedVars | any {
 
     if (options) {
 
@@ -119,6 +131,18 @@ export function useUp(options?: UpOptions):exportedVars|any {
             });
         }
 
+
+        if (!config.has('exclude.graphql')) {
+            if (config.has('graphql.client')) {
+                graphqlClient = config.get('graphql.client');
+            } else if(config.has('graphql.url')) {
+                graphqlClient = new ApolloClient({
+                    uri: config.get('graphql.url'),
+                    cache: new InMemoryCache()
+                });
+            }
+        }
+
         store = config.get('override.store');
 
         exported = {
@@ -129,6 +153,7 @@ export function useUp(options?: UpOptions):exportedVars|any {
             form,
             formApi,
             store,
+            graphqlClient,
             t: i18n?.__.bind(i18n),
             __: i18n?.__.bind(i18n),
             choice: i18n?.choice.bind(i18n),

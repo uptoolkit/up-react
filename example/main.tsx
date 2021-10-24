@@ -14,6 +14,9 @@ useUp({
         },
         url: '/'
     },
+    graphql: {
+        url: "https://api.mocki.io/v2/c4d7a195/graphql"
+    },
     storeMode: 'reactive', // could be reactive|vuex
     // store: store, // if defined you can define your vuex store if you choose vuex
     api: {
