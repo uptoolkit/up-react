@@ -1,5 +1,9 @@
 # Up React
 
+[![Latest Version on NPM](https://img.shields.io/npm/v/upvue.svg?style=flat-square)](https://npmjs.com/package/use-up)
+![npm](https://img.shields.io/npm/dt/use-up)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 ## Why ?
 
 🥸 : Bootstrapping a project is unexpectedly very difficult because there are so many choices, too many setups and configs to do before just working on a project...
