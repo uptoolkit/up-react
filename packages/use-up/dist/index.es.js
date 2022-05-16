@@ -17,7 +17,8 @@ var __spreadValues = (a, b) => {
 import { Config } from "js-config-helper";
 import * as axios from "axios";
 import { message as message$1, notification as notification$1 } from "antd";
-import Form from "js-form-helper";
+import { Form } from "js-form-helper";
+import { createContext, useState } from "react";
 class I18n {
   __(key, data = null, locale = null) {
     return this.get(key, data, locale);
@@ -8065,6 +8066,7 @@ var ApolloClient = function() {
   };
   return ApolloClient2;
 }();
+const UpContext = createContext(void 0);
 let api;
 let http;
 let config;
@@ -8083,6 +8085,7 @@ function useUp(options) {
     api = config.get("override") || axios.create({
       baseURL: config.get("api.url")
     });
+    const [loading, setLoading] = useState(false);
     if (!config.has("exclude.form")) {
       form = function(data, options2) {
         return new Form(data, __spreadValues(__spreadValues({}, {
@@ -8128,6 +8131,8 @@ function useUp(options) {
       form,
       formApi,
       store,
+      loading,
+      setLoading,
       graphqlClient,
       t: i18n == null ? void 0 : i18n.__.bind(i18n),
       __: i18n == null ? void 0 : i18n.__.bind(i18n),
@@ -8141,4 +8146,4 @@ function useUp(options) {
   }
   return exported;
 }
-export { api, config, exported, form, formApi, graphqlClient, http, i18n, message, notification, store, useUp };
+export { UpContext, api, config, exported, form, formApi, graphqlClient, http, i18n, message, notification, store, useUp };

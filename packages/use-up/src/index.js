@@ -3,8 +3,10 @@ import { Config } from 'js-config-helper';
 import * as axios from 'axios';
 import { createI18n } from "@cherrypulp/i18n";
 import { message as messageAnt, notification as notificationAnt } from 'antd';
-import Form from "js-form-helper";
+import { Form } from "js-form-helper";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { createContext, useState } from 'react';
+export const UpContext = createContext(undefined);
 export let api;
 export let http;
 export let config;
@@ -31,6 +33,7 @@ export function useUp(options) {
         api = config.get('override') || axios.create({
             baseURL: config.get('api.url'),
         });
+        const [loading, setLoading] = useState(false);
         // Define form helper and wrapper from the Form Lib
         if (!config.has('exclude.form')) {
             form = function (data, options) {
@@ -87,6 +90,8 @@ export function useUp(options) {
             form,
             formApi,
             store,
+            loading,
+            setLoading,
             graphqlClient,
             t: i18n?.__.bind(i18n),
             __: i18n?.__.bind(i18n),

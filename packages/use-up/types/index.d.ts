@@ -1,8 +1,10 @@
+/// <reference types="react" />
 import I18n from "@cherrypulp/i18n";
 import { Store } from "@reduxjs/toolkit";
 import { MessageInstance } from "antd/lib/message";
 import { NotificationInstance } from "antd/es/notification";
 import { ApolloClient } from "@apollo/client";
+export declare const UpContext: import("react").Context<any>;
 export declare let api: object | null | any;
 export declare let http: object | null | any;
 export declare let config: any;
@@ -30,7 +32,7 @@ export interface UpOptions {
     };
     graphql?: {
         url?: string;
-        client?: string;
+        client?: ApolloClient<any>;
     };
     translations?: Record<string, object | string>;
     locale?: string;
@@ -39,6 +41,8 @@ export interface UpOptions {
 }
 export interface exportedVars {
     config: boolean;
+    loading: any;
+    setLoading?(state: boolean): any;
     api: boolean;
     http: boolean;
     i18n: boolean;
