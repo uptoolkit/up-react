@@ -1,5 +1,8 @@
 import * as axios$1 from "axios";
 import { message as message$1, notification as notification$1 } from "antd";
+function commonjsRequire(path) {
+  throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+}
 var Config_1 = void 0;
 var Config = function() {
   function Config2(options) {
@@ -51,154 +54,6 @@ var Config = function() {
   return Config2;
 }();
 Config_1 = Config;
-var __defProp$1 = Object.defineProperty;
-var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value
-}) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp$1(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-function _mergeNamespaces(n2, m2) {
-  m2.forEach(function(e) {
-    Object.keys(e).forEach(function(k) {
-      if (k !== "default" && !(k in n2)) {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n2, k, d.get ? d : {
-          enumerable: true,
-          get: function() {
-            return e[k];
-          }
-        });
-      }
-    });
-  });
-  return Object.freeze(n2);
-}
-class Errors$2 {
-  constructor(errors2 = {}) {
-    this.record(errors2);
-  }
-  all() {
-    return this.errors;
-  }
-  has(field) {
-    let hasError = this.errors.hasOwnProperty(field);
-    if (!hasError) {
-      const errors2 = Object.keys(this.errors).filter((e) => e.startsWith(`${field}.`) || e.startsWith(`${field}[`));
-      hasError = errors2.length > 0;
-    }
-    return hasError;
-  }
-  first(field) {
-    return this.get(field)[0];
-  }
-  get(field) {
-    return this.errors[field] || [];
-  }
-  any(keys = []) {
-    if (keys.length === 0) {
-      return Object.keys(this.errors).length > 0;
-    }
-    let errors2 = {};
-    keys.forEach((key) => errors2[key] = this.get(key));
-    return errors2;
-  }
-  record(errors2 = {}) {
-    this.errors = errors2;
-  }
-  clear(field) {
-    if (!field) {
-      this.errors = {};
-      return;
-    }
-    let errors2 = Object.assign({}, this.errors);
-    Object.keys(errors2).filter((e) => e === field || e.startsWith(`${field}.`) || e.startsWith(`${field}[`)).forEach((e) => delete errors2[e]);
-    this.errors = errors2;
-  }
-}
-function isArray(object) {
-  return Object.prototype.toString.call(object) === "[object Array]";
-}
-function isFile(object) {
-  return object instanceof File || object instanceof FileList;
-}
-function merge(a, b) {
-  for (const key in b) {
-    a[key] = cloneDeep$1(b[key]);
-  }
-}
-function cloneDeep$1(object) {
-  if (object === null) {
-    return null;
-  }
-  if (isFile(object)) {
-    return object;
-  }
-  if (Array.isArray(object)) {
-    const clone = [];
-    for (const key in object) {
-      if (object.hasOwnProperty(key)) {
-        clone[key] = cloneDeep$1(object[key]);
-      }
-    }
-    return clone;
-  }
-  if (typeof object === "object") {
-    const clone = {};
-    for (const key in object) {
-      if (object.hasOwnProperty(key)) {
-        clone[key] = cloneDeep$1(object[key]);
-      }
-    }
-    return clone;
-  }
-  return object;
-}
-function objectToFormData(object, formData = new FormData(), parent = null) {
-  if (object === null || object === "undefined" || object.length === 0) {
-    return formData.append(parent, object);
-  }
-  for (const property in object) {
-    if (object.hasOwnProperty(property)) {
-      appendToFormData(formData, getKey(parent, property), object[property]);
-    }
-  }
-  return formData;
-}
-function getKey(parent, property) {
-  return parent ? parent + "[" + property + "]" : property;
-}
-function appendToFormData(formData, key, value) {
-  if (value instanceof Date) {
-    return formData.append(key, value.toISOString());
-  }
-  if (value instanceof File) {
-    return formData.append(key, value, value.name);
-  }
-  if (typeof value === "boolean") {
-    return formData.append(key, value ? "1" : "0");
-  }
-  if (value === null) {
-    return formData.append(key, "");
-  }
-  if (typeof value !== "object") {
-    return formData.append(key, value);
-  }
-  objectToFormData(value, formData, key);
-}
-const reservedFieldNames = ["__http", "__options", "__validateRequestType", "clear", "data", "delete", "errors", "getError", "getErrors", "hasError", "initial", "onFail", "only", "onSuccess", "patch", "populate", "post", "processing", "successful", "put", "reset", "submit", "withData", "withErrors", "withOptions"];
-function guardAgainstReservedFieldName(fieldName) {
-  if (reservedFieldNames.indexOf(fieldName) !== -1) {
-    throw new Error(`Field name ${fieldName} isn't allowed to be used in a Form or Errors instance.`);
-  }
-}
-function commonjsRequire(path) {
-  throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
-}
 function leapYear(year) {
   return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
 }
@@ -686,7 +541,17 @@ Rule.prototype = {
 };
 var manager = {
   asyncRules: [],
-  implicitRules: ["required", "required_if", "required_unless", "required_with", "required_with_all", "required_without", "required_without_all", "accepted", "present"],
+  implicitRules: [
+    "required",
+    "required_if",
+    "required_unless",
+    "required_with",
+    "required_with_all",
+    "required_without",
+    "required_without_all",
+    "accepted",
+    "present"
+  ],
   make: function(name, validator2) {
     var async2 = this.isAsync(name);
     var rule = new Rule(name, rules[name], async2);
@@ -931,11 +796,11 @@ var container = {
   }
 };
 var lang = container;
-var Errors$1 = function() {
+var Errors$2 = function() {
   this.errors = {};
 };
-Errors$1.prototype = {
-  constructor: Errors$1,
+Errors$2.prototype = {
+  constructor: Errors$2,
   add: function(attribute, message2) {
     if (!this.has(attribute)) {
       this.errors[attribute] = [];
@@ -966,7 +831,7 @@ Errors$1.prototype = {
     return false;
   }
 };
-var errors = Errors$1;
+var errors = Errors$2;
 function AsyncResolvers$1(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
   this.onFailedOne = onFailedOne;
@@ -1011,7 +876,7 @@ AsyncResolvers$1.prototype = {
 var async = AsyncResolvers$1;
 var Rules = rules_1;
 var Lang = lang;
-var Errors = errors;
+var Errors$1 = errors;
 var Attributes = attributes;
 var AsyncResolvers = async;
 var Validator = function(input, rules2, customMessages) {
@@ -1020,7 +885,7 @@ var Validator = function(input, rules2, customMessages) {
   this.messages = Lang._make(lang2);
   this.messages._setCustom(customMessages);
   this.setAttributeFormatter(Validator.prototype.attributeFormatter);
-  this.errors = new Errors();
+  this.errors = new Errors$1();
   this.errorCount = 0;
   this.hasAsync = false;
   this.rules = this._parseRules(rules2);
@@ -1364,17 +1229,162 @@ Validator.registerMissedRuleValidator = function(fn, message2) {
   Rules.registerMissedRuleValidator(fn, message2);
 };
 var validator = Validator;
-var Validator$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ _mergeNamespaces({
-  __proto__: null,
-  [Symbol.toStringTag]: "Module",
-  "default": validator
-}, [validator]));
+var __defProp$1 = Object.defineProperty;
+var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp$1(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+class Errors {
+  constructor(errors2 = {}) {
+    this.record(errors2);
+  }
+  all() {
+    return this.errors;
+  }
+  has(field) {
+    let hasError = this.errors.hasOwnProperty(field);
+    if (!hasError) {
+      const errors2 = Object.keys(this.errors).filter((e) => e.startsWith(`${field}.`) || e.startsWith(`${field}[`));
+      hasError = errors2.length > 0;
+    }
+    return hasError;
+  }
+  first(field) {
+    return this.get(field)[0];
+  }
+  get(field) {
+    return this.errors[field] || [];
+  }
+  any(keys = []) {
+    if (keys.length === 0) {
+      return Object.keys(this.errors).length > 0;
+    }
+    let errors2 = {};
+    keys.forEach((key) => errors2[key] = this.get(key));
+    return errors2;
+  }
+  record(errors2 = {}) {
+    this.errors = errors2;
+  }
+  clear(field) {
+    if (!field) {
+      this.errors = {};
+      return;
+    }
+    let errors2 = Object.assign({}, this.errors);
+    Object.keys(errors2).filter((e) => e === field || e.startsWith(`${field}.`) || e.startsWith(`${field}[`)).forEach((e) => delete errors2[e]);
+    this.errors = errors2;
+  }
+}
+function isArray(object) {
+  return Object.prototype.toString.call(object) === "[object Array]";
+}
+function isFile(object) {
+  return object instanceof File || object instanceof FileList;
+}
+function merge(a, b) {
+  for (const key in b) {
+    a[key] = cloneDeep$1(b[key]);
+  }
+}
+function cloneDeep$1(object) {
+  if (object === null) {
+    return null;
+  }
+  if (isFile(object)) {
+    return object;
+  }
+  if (Array.isArray(object)) {
+    const clone = [];
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        clone[key] = cloneDeep$1(object[key]);
+      }
+    }
+    return clone;
+  }
+  if (typeof object === "object") {
+    const clone = {};
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        clone[key] = cloneDeep$1(object[key]);
+      }
+    }
+    return clone;
+  }
+  return object;
+}
+function objectToFormData(object, formData = new FormData(), parent = null) {
+  if (object === null || object === "undefined" || object.length === 0) {
+    return formData.append(parent, object);
+  }
+  for (const property in object) {
+    if (object.hasOwnProperty(property)) {
+      appendToFormData(formData, getKey(parent, property), object[property]);
+    }
+  }
+  return formData;
+}
+function getKey(parent, property) {
+  return parent ? parent + "[" + property + "]" : property;
+}
+function appendToFormData(formData, key, value) {
+  if (value instanceof Date) {
+    return formData.append(key, value.toISOString());
+  }
+  if (value instanceof File) {
+    return formData.append(key, value, value.name);
+  }
+  if (typeof value === "boolean") {
+    return formData.append(key, value ? "1" : "0");
+  }
+  if (value === null) {
+    return formData.append(key, "");
+  }
+  if (typeof value !== "object") {
+    return formData.append(key, value);
+  }
+  objectToFormData(value, formData, key);
+}
+const reservedFieldNames = [
+  "__http",
+  "__options",
+  "__validateRequestType",
+  "clear",
+  "data",
+  "delete",
+  "errors",
+  "getError",
+  "getErrors",
+  "hasError",
+  "initial",
+  "onFail",
+  "only",
+  "onSuccess",
+  "patch",
+  "populate",
+  "post",
+  "processing",
+  "successful",
+  "put",
+  "reset",
+  "submit",
+  "withData",
+  "withErrors",
+  "withOptions"
+];
+function guardAgainstReservedFieldName(fieldName) {
+  if (reservedFieldNames.indexOf(fieldName) !== -1) {
+    throw new Error(`Field name ${fieldName} isn't allowed to be used in a Form or Errors instance.`);
+  }
+}
 class Form {
   constructor(data = {}, options = {}) {
+    __publicField(this, "__options");
     __publicField(this, "processing");
     __publicField(this, "successful");
     __publicField(this, "errors");
-    __publicField(this, "__options");
     __publicField(this, "initial");
     this.processing = false;
     this.successful = false;
@@ -1388,7 +1398,7 @@ class Form {
       }, {});
     }
     this.setInitialValues(data);
-    this.errors = new Errors$2();
+    this.errors = new Errors();
     this.processing = false;
     this.successful = false;
     for (const field in data) {
@@ -1398,7 +1408,7 @@ class Form {
     return this;
   }
   withErrors(errors2) {
-    this.errors = new Errors$2(errors2);
+    this.errors = new Errors(errors2);
     return this;
   }
   withOptions(options) {
@@ -1446,9 +1456,7 @@ class Form {
     Object.keys(data).forEach((field) => {
       guardAgainstReservedFieldName(field);
       if (this.hasOwnProperty(field)) {
-        merge(this, {
-          [field]: data[field]
-        });
+        merge(this, { [field]: data[field] });
       }
     });
     return this;
@@ -1458,6 +1466,9 @@ class Form {
       this[field] = "";
     }
     this.errors.clear();
+  }
+  get(url) {
+    return this.submit("get", url);
   }
   post(url) {
     return this.submit("post", url);
@@ -1549,10 +1560,11 @@ class Form {
     this.errors.clear();
     this.processing = true;
     this.successful = false;
-    let validation = new Validator$1(this.data(), rules2);
+    let customMessages = customErrorMessages || {};
+    let validation = new validator(this.data(), rules2, customMessages);
     if (validation.fails()) {
       this.successful = false;
-      this.errors.record(validation.errors.all());
+      this.withErrors(validation.errors.all());
     } else {
       this.successful = true;
     }
@@ -1561,16 +1573,373 @@ class Form {
     return new Form().withData(data);
   }
 }
+var react = { exports: {} };
+var react_production_min = {};
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty$6 = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+function toObject(val) {
+  if (val === null || val === void 0) {
+    throw new TypeError("Object.assign cannot be called with null or undefined");
+  }
+  return Object(val);
+}
+function shouldUseNative() {
+  try {
+    if (!Object.assign) {
+      return false;
+    }
+    var test1 = new String("abc");
+    test1[5] = "de";
+    if (Object.getOwnPropertyNames(test1)[0] === "5") {
+      return false;
+    }
+    var test2 = {};
+    for (var i = 0; i < 10; i++) {
+      test2["_" + String.fromCharCode(i)] = i;
+    }
+    var order2 = Object.getOwnPropertyNames(test2).map(function(n2) {
+      return test2[n2];
+    });
+    if (order2.join("") !== "0123456789") {
+      return false;
+    }
+    var test3 = {};
+    "abcdefghijklmnopqrst".split("").forEach(function(letter) {
+      test3[letter] = letter;
+    });
+    if (Object.keys(Object.assign({}, test3)).join("") !== "abcdefghijklmnopqrst") {
+      return false;
+    }
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+var objectAssign = shouldUseNative() ? Object.assign : function(target, source) {
+  var from;
+  var to = toObject(target);
+  var symbols;
+  for (var s = 1; s < arguments.length; s++) {
+    from = Object(arguments[s]);
+    for (var key in from) {
+      if (hasOwnProperty$6.call(from, key)) {
+        to[key] = from[key];
+      }
+    }
+    if (getOwnPropertySymbols) {
+      symbols = getOwnPropertySymbols(from);
+      for (var i = 0; i < symbols.length; i++) {
+        if (propIsEnumerable.call(from, symbols[i])) {
+          to[symbols[i]] = from[symbols[i]];
+        }
+      }
+    }
+  }
+  return to;
+};
+/** @license React v17.0.2
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var l = objectAssign, n$1 = 60103, p$1 = 60106;
+react_production_min.Fragment = 60107;
+react_production_min.StrictMode = 60108;
+react_production_min.Profiler = 60114;
+var q$1 = 60109, r = 60110, t = 60112;
+react_production_min.Suspense = 60113;
+var u = 60115, v = 60116;
+if (typeof Symbol === "function" && Symbol.for) {
+  var w = Symbol.for;
+  n$1 = w("react.element");
+  p$1 = w("react.portal");
+  react_production_min.Fragment = w("react.fragment");
+  react_production_min.StrictMode = w("react.strict_mode");
+  react_production_min.Profiler = w("react.profiler");
+  q$1 = w("react.provider");
+  r = w("react.context");
+  t = w("react.forward_ref");
+  react_production_min.Suspense = w("react.suspense");
+  u = w("react.memo");
+  v = w("react.lazy");
+}
+var x = typeof Symbol === "function" && Symbol.iterator;
+function y(a) {
+  if (a === null || typeof a !== "object")
+    return null;
+  a = x && a[x] || a["@@iterator"];
+  return typeof a === "function" ? a : null;
+}
+function z(a) {
+  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++)
+    b += "&args[]=" + encodeURIComponent(arguments[c]);
+  return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
+}
+var A = { isMounted: function() {
+  return false;
+}, enqueueForceUpdate: function() {
+}, enqueueReplaceState: function() {
+}, enqueueSetState: function() {
+} }, B = {};
+function C(a, b, c) {
+  this.props = a;
+  this.context = b;
+  this.refs = B;
+  this.updater = c || A;
+}
+C.prototype.isReactComponent = {};
+C.prototype.setState = function(a, b) {
+  if (typeof a !== "object" && typeof a !== "function" && a != null)
+    throw Error(z(85));
+  this.updater.enqueueSetState(this, a, b, "setState");
+};
+C.prototype.forceUpdate = function(a) {
+  this.updater.enqueueForceUpdate(this, a, "forceUpdate");
+};
+function D() {
+}
+D.prototype = C.prototype;
+function E(a, b, c) {
+  this.props = a;
+  this.context = b;
+  this.refs = B;
+  this.updater = c || A;
+}
+var F = E.prototype = new D();
+F.constructor = E;
+l(F, C.prototype);
+F.isPureReactComponent = true;
+var G = { current: null }, H = Object.prototype.hasOwnProperty, I = { key: true, ref: true, __self: true, __source: true };
+function J(a, b, c) {
+  var e, d = {}, k = null, h = null;
+  if (b != null)
+    for (e in b.ref !== void 0 && (h = b.ref), b.key !== void 0 && (k = "" + b.key), b)
+      H.call(b, e) && !I.hasOwnProperty(e) && (d[e] = b[e]);
+  var g2 = arguments.length - 2;
+  if (g2 === 1)
+    d.children = c;
+  else if (1 < g2) {
+    for (var f2 = Array(g2), m2 = 0; m2 < g2; m2++)
+      f2[m2] = arguments[m2 + 2];
+    d.children = f2;
+  }
+  if (a && a.defaultProps)
+    for (e in g2 = a.defaultProps, g2)
+      d[e] === void 0 && (d[e] = g2[e]);
+  return { $$typeof: n$1, type: a, key: k, ref: h, props: d, _owner: G.current };
+}
+function K(a, b) {
+  return { $$typeof: n$1, type: a.type, key: b, ref: a.ref, props: a.props, _owner: a._owner };
+}
+function L(a) {
+  return typeof a === "object" && a !== null && a.$$typeof === n$1;
+}
+function escape(a) {
+  var b = { "=": "=0", ":": "=2" };
+  return "$" + a.replace(/[=:]/g, function(a2) {
+    return b[a2];
+  });
+}
+var M = /\/+/g;
+function N(a, b) {
+  return typeof a === "object" && a !== null && a.key != null ? escape("" + a.key) : b.toString(36);
+}
+function O(a, b, c, e, d) {
+  var k = typeof a;
+  if (k === "undefined" || k === "boolean")
+    a = null;
+  var h = false;
+  if (a === null)
+    h = true;
+  else
+    switch (k) {
+      case "string":
+      case "number":
+        h = true;
+        break;
+      case "object":
+        switch (a.$$typeof) {
+          case n$1:
+          case p$1:
+            h = true;
+        }
+    }
+  if (h)
+    return h = a, d = d(h), a = e === "" ? "." + N(h, 0) : e, Array.isArray(d) ? (c = "", a != null && (c = a.replace(M, "$&/") + "/"), O(d, b, c, "", function(a2) {
+      return a2;
+    })) : d != null && (L(d) && (d = K(d, c + (!d.key || h && h.key === d.key ? "" : ("" + d.key).replace(M, "$&/") + "/") + a)), b.push(d)), 1;
+  h = 0;
+  e = e === "" ? "." : e + ":";
+  if (Array.isArray(a))
+    for (var g2 = 0; g2 < a.length; g2++) {
+      k = a[g2];
+      var f2 = e + N(k, g2);
+      h += O(k, b, c, f2, d);
+    }
+  else if (f2 = y(a), typeof f2 === "function")
+    for (a = f2.call(a), g2 = 0; !(k = a.next()).done; )
+      k = k.value, f2 = e + N(k, g2++), h += O(k, b, c, f2, d);
+  else if (k === "object")
+    throw b = "" + a, Error(z(31, b === "[object Object]" ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
+  return h;
+}
+function P(a, b, c) {
+  if (a == null)
+    return a;
+  var e = [], d = 0;
+  O(a, e, "", "", function(a2) {
+    return b.call(c, a2, d++);
+  });
+  return e;
+}
+function Q(a) {
+  if (a._status === -1) {
+    var b = a._result;
+    b = b();
+    a._status = 0;
+    a._result = b;
+    b.then(function(b2) {
+      a._status === 0 && (b2 = b2.default, a._status = 1, a._result = b2);
+    }, function(b2) {
+      a._status === 0 && (a._status = 2, a._result = b2);
+    });
+  }
+  if (a._status === 1)
+    return a._result;
+  throw a._result;
+}
+var R = { current: null };
+function S() {
+  var a = R.current;
+  if (a === null)
+    throw Error(z(321));
+  return a;
+}
+var T = { ReactCurrentDispatcher: R, ReactCurrentBatchConfig: { transition: 0 }, ReactCurrentOwner: G, IsSomeRendererActing: { current: false }, assign: l };
+react_production_min.Children = { map: P, forEach: function(a, b, c) {
+  P(a, function() {
+    b.apply(this, arguments);
+  }, c);
+}, count: function(a) {
+  var b = 0;
+  P(a, function() {
+    b++;
+  });
+  return b;
+}, toArray: function(a) {
+  return P(a, function(a2) {
+    return a2;
+  }) || [];
+}, only: function(a) {
+  if (!L(a))
+    throw Error(z(143));
+  return a;
+} };
+react_production_min.Component = C;
+react_production_min.PureComponent = E;
+react_production_min.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = T;
+react_production_min.cloneElement = function(a, b, c) {
+  if (a === null || a === void 0)
+    throw Error(z(267, a));
+  var e = l({}, a.props), d = a.key, k = a.ref, h = a._owner;
+  if (b != null) {
+    b.ref !== void 0 && (k = b.ref, h = G.current);
+    b.key !== void 0 && (d = "" + b.key);
+    if (a.type && a.type.defaultProps)
+      var g2 = a.type.defaultProps;
+    for (f2 in b)
+      H.call(b, f2) && !I.hasOwnProperty(f2) && (e[f2] = b[f2] === void 0 && g2 !== void 0 ? g2[f2] : b[f2]);
+  }
+  var f2 = arguments.length - 2;
+  if (f2 === 1)
+    e.children = c;
+  else if (1 < f2) {
+    g2 = Array(f2);
+    for (var m2 = 0; m2 < f2; m2++)
+      g2[m2] = arguments[m2 + 2];
+    e.children = g2;
+  }
+  return {
+    $$typeof: n$1,
+    type: a.type,
+    key: d,
+    ref: k,
+    props: e,
+    _owner: h
+  };
+};
+react_production_min.createContext = function(a, b) {
+  b === void 0 && (b = null);
+  a = { $$typeof: r, _calculateChangedBits: b, _currentValue: a, _currentValue2: a, _threadCount: 0, Provider: null, Consumer: null };
+  a.Provider = { $$typeof: q$1, _context: a };
+  return a.Consumer = a;
+};
+react_production_min.createElement = J;
+react_production_min.createFactory = function(a) {
+  var b = J.bind(null, a);
+  b.type = a;
+  return b;
+};
+react_production_min.createRef = function() {
+  return { current: null };
+};
+react_production_min.forwardRef = function(a) {
+  return { $$typeof: t, render: a };
+};
+react_production_min.isValidElement = L;
+react_production_min.lazy = function(a) {
+  return { $$typeof: v, _payload: { _status: -1, _result: a }, _init: Q };
+};
+react_production_min.memo = function(a, b) {
+  return { $$typeof: u, type: a, compare: b === void 0 ? null : b };
+};
+react_production_min.useCallback = function(a, b) {
+  return S().useCallback(a, b);
+};
+react_production_min.useContext = function(a, b) {
+  return S().useContext(a, b);
+};
+react_production_min.useDebugValue = function() {
+};
+react_production_min.useEffect = function(a, b) {
+  return S().useEffect(a, b);
+};
+react_production_min.useImperativeHandle = function(a, b, c) {
+  return S().useImperativeHandle(a, b, c);
+};
+react_production_min.useLayoutEffect = function(a, b) {
+  return S().useLayoutEffect(a, b);
+};
+react_production_min.useMemo = function(a, b) {
+  return S().useMemo(a, b);
+};
+react_production_min.useReducer = function(a, b, c) {
+  return S().useReducer(a, b, c);
+};
+react_production_min.useRef = function(a) {
+  return S().useRef(a);
+};
+react_production_min.useState = function(a) {
+  return S().useState(a);
+};
+react_production_min.version = "17.0.2";
+{
+  react.exports = react_production_min;
+}
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value
-}) : obj[key] = value;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues = (a, b) => {
   for (var prop in b || (b = {}))
     if (__hasOwnProp.call(b, prop))
@@ -1628,7 +1997,7 @@ class I18n {
     }, options);
     this.forceDisplayKeys = options.forceDisplayKeys;
     this.locale = defaultLocale;
-    this.translations = new Map();
+    this.translations = /* @__PURE__ */ new Map();
     if (typeof window !== "undefined" && options.globalName) {
       if (window[options.globalName] === void 0) {
         window[options.globalName] = {};
@@ -2269,7 +2638,13 @@ var QueryDocumentKeys = {
   Argument: ["name", "value"],
   FragmentSpread: ["name", "directives"],
   InlineFragment: ["typeCondition", "directives", "selectionSet"],
-  FragmentDefinition: ["name", "variableDefinitions", "typeCondition", "directives", "selectionSet"],
+  FragmentDefinition: [
+    "name",
+    "variableDefinitions",
+    "typeCondition",
+    "directives",
+    "selectionSet"
+  ],
   IntValue: [],
   FloatValue: [],
   StringValue: [],
@@ -3029,7 +3404,7 @@ function getMainDefinition(queryDoc) {
   throw __DEV__ ? new InvariantError("Expected a parsed GraphQL query with a query, mutation, subscription, or a fragment.") : new InvariantError(53);
 }
 function getDefaultValues(definition) {
-  var defaultValues = Object.create(null);
+  var defaultValues = /* @__PURE__ */ Object.create(null);
   var defs = definition && definition.variableDefinitions;
   if (defs && defs.length) {
     defs.forEach(function(def) {
@@ -3073,9 +3448,9 @@ function getDirectiveMatcher(directives) {
   };
 }
 function removeDirectivesFromDocument(directives, doc) {
-  var variablesInUse = Object.create(null);
+  var variablesInUse = /* @__PURE__ */ Object.create(null);
   var variablesToRemove = [];
-  var fragmentSpreadsInUse = Object.create(null);
+  var fragmentSpreadsInUse = /* @__PURE__ */ Object.create(null);
   var fragmentSpreadsToRemove = [];
   var modifiedDoc = nullIfDocIsEmpty(visit(doc, {
     Variable: {
@@ -3340,7 +3715,7 @@ var DeepMerger = function() {
     }
     this.reconciler = reconciler;
     this.isObject = isNonNullObject;
-    this.pastCopies = new Set();
+    this.pastCopies = /* @__PURE__ */ new Set();
   }
   DeepMerger2.prototype.merge = function(target, source) {
     var _this = this;
@@ -3993,7 +4368,7 @@ function cloneDeep(value) {
 function cloneDeepHelper(val, seen) {
   switch (toString$1.call(val)) {
     case "[object Array]": {
-      seen = seen || new Map();
+      seen = seen || /* @__PURE__ */ new Map();
       if (seen.has(val))
         return seen.get(val);
       var copy_1 = val.slice(0);
@@ -4004,7 +4379,7 @@ function cloneDeepHelper(val, seen) {
       return copy_1;
     }
     case "[object Object]": {
-      seen = seen || new Map();
+      seen = seen || /* @__PURE__ */ new Map();
       if (seen.has(val))
         return seen.get(val);
       var copy_2 = Object.create(Object.getPrototypeOf(val));
@@ -4019,7 +4394,7 @@ function cloneDeepHelper(val, seen) {
   }
 }
 function deepFreeze(value) {
-  var workSet = new Set([value]);
+  var workSet = /* @__PURE__ */ new Set([value]);
   workSet.forEach(function(obj) {
     if (isNonNullObject(obj) && shallowFreeze(obj) === obj) {
       Object.getOwnPropertyNames(obj).forEach(function(name) {
@@ -4138,7 +4513,7 @@ var Concast = function(_super) {
         return _this.removeObserver(observer);
       };
     }) || this;
-    _this.observers = new Set();
+    _this.observers = /* @__PURE__ */ new Set();
     _this.addCount = 0;
     _this.promise = new Promise(function(resolve, reject) {
       _this.resolve = resolve;
@@ -4267,7 +4642,7 @@ function compact() {
   for (var _i = 0; _i < arguments.length; _i++) {
     objects[_i] = arguments[_i];
   }
-  var result = Object.create(null);
+  var result = /* @__PURE__ */ Object.create(null);
   objects.forEach(function(obj) {
     if (!obj)
       return;
@@ -4280,7 +4655,7 @@ function compact() {
   });
   return result;
 }
-var prefixCounts = new Map();
+var prefixCounts = /* @__PURE__ */ new Map();
 function makeUniqueId(prefix) {
   var count = prefixCounts.get(prefix) || 1;
   prefixCounts.set(prefix, count + 1);
@@ -4533,7 +4908,7 @@ var selectHttpOptionsAndBody = function(operation, fallbackConfig) {
 };
 function headersToLowerCase(headers) {
   if (headers) {
-    var normalized_1 = Object.create(null);
+    var normalized_1 = /* @__PURE__ */ Object.create(null);
     Object.keys(Object(headers)).forEach(function(name) {
       normalized_1[name.toLowerCase()] = headers[name];
     });
@@ -4747,7 +5122,7 @@ var HttpLink = function(_super) {
 }(ApolloLink);
 var _a$2 = Object.prototype, toString = _a$2.toString, hasOwnProperty$3 = _a$2.hasOwnProperty;
 var fnToStr = Function.prototype.toString;
-var previousComparisons = new Map();
+var previousComparisons = /* @__PURE__ */ new Map();
 function equal(a, b) {
   try {
     return check(a, b);
@@ -4869,13 +5244,13 @@ function previouslyCompared(a, b) {
     if (bSet.has(b))
       return true;
   } else {
-    previousComparisons.set(a, bSet = new Set());
+    previousComparisons.set(a, bSet = /* @__PURE__ */ new Set());
   }
   bSet.add(b);
   return false;
 }
 var defaultMakeData = function() {
-  return Object.create(null);
+  return /* @__PURE__ */ Object.create(null);
 };
 var _a$1 = Array.prototype, forEach = _a$1.forEach, slice = _a$1.slice;
 var Trie = function() {
@@ -4904,7 +5279,7 @@ var Trie = function() {
     return node.data || (node.data = this.makeData(slice.call(array)));
   };
   Trie2.prototype.getChildTrie = function(key) {
-    var map = this.weakness && isObjRef(key) ? this.weak || (this.weak = new WeakMap()) : this.strong || (this.strong = new Map());
+    var map = this.weakness && isObjRef(key) ? this.weak || (this.weak = /* @__PURE__ */ new WeakMap()) : this.strong || (this.strong = /* @__PURE__ */ new Map());
     var child = map.get(key);
     if (!child)
       map.set(key, child = new Trie2(this.weakness, this.makeData));
@@ -5025,7 +5400,7 @@ var Cache = function() {
     }
     this.max = max;
     this.dispose = dispose;
-    this.map = new Map();
+    this.map = /* @__PURE__ */ new Map();
     this.newest = null;
     this.oldest = null;
   }
@@ -5147,8 +5522,8 @@ function valueCopy(value) {
 var Entry = function() {
   function Entry2(fn) {
     this.fn = fn;
-    this.parents = new Set();
-    this.childValues = new Map();
+    this.parents = /* @__PURE__ */ new Set();
+    this.childValues = /* @__PURE__ */ new Map();
     this.dirtyChildren = null;
     this.dirty = true;
     this.recomputing = false;
@@ -5190,7 +5565,7 @@ var Entry = function() {
   Entry2.prototype.dependOn = function(dep2) {
     dep2.add(this);
     if (!this.deps) {
-      this.deps = emptySetPool.pop() || new Set();
+      this.deps = emptySetPool.pop() || /* @__PURE__ */ new Set();
     }
     this.deps.add(dep2);
   };
@@ -5271,7 +5646,7 @@ function reportDirtyChild(parent, child) {
   assert(mightBeDirty(child));
   var parentWasClean = !mightBeDirty(parent);
   if (!parent.dirtyChildren) {
-    parent.dirtyChildren = emptySetPool.pop() || new Set();
+    parent.dirtyChildren = emptySetPool.pop() || /* @__PURE__ */ new Set();
   } else if (parent.dirtyChildren.has(child)) {
     return;
   }
@@ -5339,14 +5714,14 @@ var EntryMethods = {
   forget: true
 };
 function dep(options) {
-  var depsByKey = new Map();
+  var depsByKey = /* @__PURE__ */ new Map();
   var subscribe = options && options.subscribe;
   function depend(key) {
     var parent = parentEntrySlot.getValue();
     if (parent) {
       var dep_1 = depsByKey.get(key);
       if (!dep_1) {
-        depsByKey.set(key, dep_1 = new Set());
+        depsByKey.set(key, dep_1 = /* @__PURE__ */ new Set());
       }
       parent.dependOn(dep_1);
       if (typeof subscribe === "function") {
@@ -5375,10 +5750,10 @@ function makeDefaultMakeCacheKeyFunction() {
   };
 }
 makeDefaultMakeCacheKeyFunction();
-var caches = new Set();
+var caches = /* @__PURE__ */ new Set();
 function wrap(originalFunction, options) {
   if (options === void 0) {
-    options = Object.create(null);
+    options = /* @__PURE__ */ Object.create(null);
   }
   var cache = new Cache(options.max || Math.pow(2, 16), function(entry) {
     return entry.dispose();
@@ -5583,19 +5958,19 @@ function storeValueIsStoreObject(value) {
 function makeProcessedFieldsMerger() {
   return new DeepMerger();
 }
-var DELETE = Object.create(null);
+var DELETE = /* @__PURE__ */ Object.create(null);
 var delModifier = function() {
   return DELETE;
 };
-var INVALIDATE = Object.create(null);
+var INVALIDATE = /* @__PURE__ */ Object.create(null);
 var EntityStore = function() {
   function EntityStore2(policies, group) {
     var _this = this;
     this.policies = policies;
     this.group = group;
-    this.data = Object.create(null);
-    this.rootIds = Object.create(null);
-    this.refs = Object.create(null);
+    this.data = /* @__PURE__ */ Object.create(null);
+    this.rootIds = /* @__PURE__ */ Object.create(null);
+    this.refs = /* @__PURE__ */ Object.create(null);
     this.getFieldValue = function(objectOrReference, storeFieldName) {
       return maybeDeepFreeze(isReference(objectOrReference) ? _this.get(objectOrReference.__ref, storeFieldName) : objectOrReference && objectOrReference[storeFieldName]);
     };
@@ -5650,7 +6025,7 @@ var EntityStore = function() {
       return this.parent.lookup(dataId, dependOnExistence);
     }
     if (this.policies.rootTypenamesById[dataId]) {
-      return Object.create(null);
+      return /* @__PURE__ */ Object.create(null);
     }
   };
   EntityStore2.prototype.merge = function(older, newer) {
@@ -5670,7 +6045,7 @@ var EntityStore = function() {
     if (merged !== existing) {
       delete this.refs[dataId];
       if (this.group.caching) {
-        var fieldsToDirty_1 = Object.create(null);
+        var fieldsToDirty_1 = /* @__PURE__ */ Object.create(null);
         if (!existing)
           fieldsToDirty_1.__exists = 1;
         Object.keys(incoming).forEach(function(storeFieldName) {
@@ -5698,7 +6073,7 @@ var EntityStore = function() {
     var _this = this;
     var storeObject = this.lookup(dataId);
     if (storeObject) {
-      var changedFields_1 = Object.create(null);
+      var changedFields_1 = /* @__PURE__ */ Object.create(null);
       var needToMerge_1 = false;
       var allDeleted_1 = true;
       var sharedDetails_1 = {
@@ -5838,7 +6213,7 @@ var EntityStore = function() {
   };
   EntityStore2.prototype.getRootIdSet = function(ids) {
     if (ids === void 0) {
-      ids = new Set();
+      ids = /* @__PURE__ */ new Set();
     }
     Object.keys(this.rootIds).forEach(ids.add, ids);
     if (this instanceof Layer) {
@@ -5871,11 +6246,11 @@ var EntityStore = function() {
   };
   EntityStore2.prototype.findChildRefIds = function(dataId) {
     if (!hasOwn.call(this.refs, dataId)) {
-      var found_1 = this.refs[dataId] = Object.create(null);
+      var found_1 = this.refs[dataId] = /* @__PURE__ */ Object.create(null);
       var root2 = this.data[dataId];
       if (!root2)
         return found_1;
-      var workSet_1 = new Set([root2]);
+      var workSet_1 = /* @__PURE__ */ new Set([root2]);
       workSet_1.forEach(function(obj) {
         if (isReference(obj)) {
           found_1[obj.__ref] = true;
@@ -6056,8 +6431,8 @@ var ObjectCanon = function() {
   function ObjectCanon2() {
     this.known = new (canUseWeakSet ? WeakSet : Set)();
     this.pool = new Trie(canUseWeakMap);
-    this.passes = new WeakMap();
-    this.keysByJSON = new Map();
+    this.passes = /* @__PURE__ */ new WeakMap();
+    this.keysByJSON = /* @__PURE__ */ new Map();
     this.empty = this.admit({});
   }
   ObjectCanon2.prototype.isKnown = function(value) {
@@ -6388,7 +6763,7 @@ var StoreReader = function() {
 }();
 function assertSelectionSetForIdValue(store2, field, fieldValue) {
   if (!field.selectionSet) {
-    var workSet_1 = new Set([fieldValue]);
+    var workSet_1 = /* @__PURE__ */ new Set([fieldValue]);
     workSet_1.forEach(function(value) {
       if (isNonNullObject(value)) {
         __DEV__ ? invariant$1(!isReference(value), "Missing selection set for object of type " + getTypenameFromStoreObject(store2, value) + " returned for query field " + field.name.value) : invariant$1(!isReference(value), 7);
@@ -6410,7 +6785,7 @@ var StoreWriter = function() {
     variables = __assign(__assign({}, getDefaultValues(operationDefinition)), variables);
     var context = {
       store: store2,
-      written: Object.create(null),
+      written: /* @__PURE__ */ Object.create(null),
       merge: function(existing, incoming) {
         return merger.merge(existing, incoming);
       },
@@ -6418,15 +6793,15 @@ var StoreWriter = function() {
       varString: canonicalStringify(variables),
       fragmentMap: createFragmentMap(getFragmentDefinitions(query)),
       overwrite: !!overwrite,
-      incomingById: new Map(),
+      incomingById: /* @__PURE__ */ new Map(),
       clientOnly: false
     };
     var ref = this.processSelectionSet({
-      result: result || Object.create(null),
+      result: result || /* @__PURE__ */ Object.create(null),
       dataId,
       selectionSet: operationDefinition.selectionSet,
       mergeTree: {
-        map: new Map()
+        map: /* @__PURE__ */ new Map()
       },
       context
     });
@@ -6447,7 +6822,7 @@ var StoreWriter = function() {
         var hasSelectionSet_1 = function(storeFieldName) {
           return fieldsWithSelectionSets_1.has(fieldNameFromStoreName(storeFieldName));
         };
-        var fieldsWithSelectionSets_1 = new Set();
+        var fieldsWithSelectionSets_1 = /* @__PURE__ */ new Set();
         selections.forEach(function(selection) {
           if (isField(selection) && selection.selectionSet) {
             fieldsWithSelectionSets_1.add(selection.name.value);
@@ -6484,7 +6859,7 @@ var StoreWriter = function() {
         return ref;
       }
     }
-    var incomingFields = Object.create(null);
+    var incomingFields = /* @__PURE__ */ Object.create(null);
     if (keyObject) {
       incomingFields = context.merge(incomingFields, keyObject);
     }
@@ -6603,7 +6978,7 @@ var StoreWriter = function() {
         }
         var aVal = _this.applyMerges(childTree, eVal, iVal, context, getStorageArgs);
         if (aVal !== iVal) {
-          changedFields_1 = changedFields_1 || new Map();
+          changedFields_1 = changedFields_1 || /* @__PURE__ */ new Map();
           changedFields_1.set(storeFieldName, aVal);
         }
         if (getStorageArgs) {
@@ -6629,7 +7004,7 @@ function getChildMergeTree(_a2, name) {
   var map = _a2.map;
   if (!map.has(name)) {
     map.set(name, emptyMergeTreePool.pop() || {
-      map: new Map()
+      map: /* @__PURE__ */ new Map()
     });
   }
   return map.get(name);
@@ -6641,7 +7016,7 @@ function mergeMergeTrees(left, right) {
     return right;
   var info = left.info && right.info ? __assign(__assign({}, left.info), right.info) : left.info || right.info;
   var needToMergeMaps = left.map.size && right.map.size;
-  var map = needToMergeMaps ? new Map() : left.map.size ? left.map : right.map;
+  var map = needToMergeMaps ? /* @__PURE__ */ new Map() : left.map.size ? left.map : right.map;
   var merged = {
     info,
     map
@@ -6669,7 +7044,7 @@ function maybeRecycleChildMergeTree(_a2, name) {
     map.delete(name);
   }
 }
-var warnings = new Set();
+var warnings = /* @__PURE__ */ new Set();
 function warnAboutDataLoss(existingRef, incomingObj, storeFieldName, store2) {
   var getChild = function(objOrRef) {
     var child = store2.getFieldValue(objOrRef, storeFieldName);
@@ -6708,12 +7083,12 @@ function warnAboutDataLoss(existingRef, incomingObj, storeFieldName, store2) {
   __DEV__ && invariant$1.warn("Cache data may be lost when replacing the " + fieldName + " field of a " + parentType + " object.\n\nTo address this problem (which is not a bug in Apollo Client), " + (childTypenames.length ? "either ensure all objects of type " + childTypenames.join(" and ") + " have an ID or a custom merge function, or " : "") + "define a custom merge function for the " + typeDotName + " field, so InMemoryCache can safely merge these objects:\n\n  existing: " + JSON.stringify(existing).slice(0, 1e3) + "\n  incoming: " + JSON.stringify(incoming).slice(0, 1e3) + "\n\nFor more information about these options, please refer to the documentation:\n\n  * Ensuring entity objects have IDs: https://go.apollo.dev/c/generating-unique-identifiers\n  * Defining custom merge functions: https://go.apollo.dev/c/merging-non-normalized-objects\n");
 }
 var cacheSlot = new Slot();
-var cacheInfoMap = new WeakMap();
+var cacheInfoMap = /* @__PURE__ */ new WeakMap();
 function getCacheInfo(cache) {
   var info = cacheInfoMap.get(cache);
   if (!info) {
     cacheInfoMap.set(cache, info = {
-      vars: new Set(),
+      vars: /* @__PURE__ */ new Set(),
       dep: dep()
     });
   }
@@ -6730,8 +7105,8 @@ function recallCache(cache) {
   });
 }
 function makeVar(value) {
-  var caches2 = new Set();
-  var listeners = new Set();
+  var caches2 = /* @__PURE__ */ new Set();
+  var listeners = /* @__PURE__ */ new Set();
   var rv = function(newValue) {
     if (arguments.length > 0) {
       if (value !== newValue) {
@@ -6796,12 +7171,12 @@ var mergeFalseFn = function(_, incoming) {
 var Policies = function() {
   function Policies2(config2) {
     this.config = config2;
-    this.typePolicies = Object.create(null);
-    this.toBeAdded = Object.create(null);
-    this.supertypeMap = new Map();
-    this.fuzzySubtypes = new Map();
-    this.rootIdsByTypename = Object.create(null);
-    this.rootTypenamesById = Object.create(null);
+    this.typePolicies = /* @__PURE__ */ Object.create(null);
+    this.toBeAdded = /* @__PURE__ */ Object.create(null);
+    this.supertypeMap = /* @__PURE__ */ new Map();
+    this.fuzzySubtypes = /* @__PURE__ */ new Map();
+    this.rootIdsByTypename = /* @__PURE__ */ Object.create(null);
+    this.rootTypenamesById = /* @__PURE__ */ Object.create(null);
     this.usingPossibleTypes = false;
     this.config = __assign({
       dataIdFromObject: defaultDataIdFromObject
@@ -6919,8 +7294,8 @@ var Policies = function() {
   Policies2.prototype.getTypePolicy = function(typename) {
     var _this = this;
     if (!hasOwn.call(this.typePolicies, typename)) {
-      var policy_1 = this.typePolicies[typename] = Object.create(null);
-      policy_1.fields = Object.create(null);
+      var policy_1 = this.typePolicies[typename] = /* @__PURE__ */ Object.create(null);
+      policy_1.fields = /* @__PURE__ */ Object.create(null);
       var supertypes = this.supertypeMap.get(typename);
       if (supertypes && supertypes.size) {
         supertypes.forEach(function(supertype) {
@@ -6941,13 +7316,13 @@ var Policies = function() {
   Policies2.prototype.getFieldPolicy = function(typename, fieldName, createIfMissing) {
     if (typename) {
       var fieldPolicies = this.getTypePolicy(typename).fields;
-      return fieldPolicies[fieldName] || createIfMissing && (fieldPolicies[fieldName] = Object.create(null));
+      return fieldPolicies[fieldName] || createIfMissing && (fieldPolicies[fieldName] = /* @__PURE__ */ Object.create(null));
     }
   };
   Policies2.prototype.getSupertypeSet = function(subtype, createIfMissing) {
     var supertypeSet = this.supertypeMap.get(subtype);
     if (!supertypeSet && createIfMissing) {
-      this.supertypeMap.set(subtype, supertypeSet = new Set());
+      this.supertypeMap.set(subtype, supertypeSet = /* @__PURE__ */ new Set());
     }
     return supertypeSet;
   };
@@ -7080,7 +7455,7 @@ var Policies = function() {
       fieldName: field.name.value,
       field,
       variables: context.variables
-    }, context, storage || Object.create(null)));
+    }, context, storage || /* @__PURE__ */ Object.create(null)));
   };
   return Policies2;
 }();
@@ -7172,8 +7547,8 @@ function keyFieldsFnFromSpecifier(specifier) {
   };
 }
 function makeAliasMap(selectionSet, fragmentMap) {
-  var map = Object.create(null);
-  var workQueue = new Set([selectionSet]);
+  var map = /* @__PURE__ */ Object.create(null);
+  var workQueue = /* @__PURE__ */ new Set([selectionSet]);
   workQueue.forEach(function(selectionSet2) {
     selectionSet2.selections.forEach(function(selection) {
       if (isField(selection)) {
@@ -7181,12 +7556,12 @@ function makeAliasMap(selectionSet, fragmentMap) {
           var responseKey = selection.alias.value;
           var storeKey = selection.name.value;
           if (storeKey !== responseKey) {
-            var aliases = map.aliases || (map.aliases = Object.create(null));
+            var aliases = map.aliases || (map.aliases = /* @__PURE__ */ Object.create(null));
             aliases[storeKey] = responseKey;
           }
         }
         if (selection.selectionSet) {
-          var subsets = map.subsets || (map.subsets = Object.create(null));
+          var subsets = map.subsets || (map.subsets = /* @__PURE__ */ Object.create(null));
           subsets[selection.name.value] = makeAliasMap(selection.selectionSet, fragmentMap);
         }
       } else {
@@ -7200,7 +7575,7 @@ function makeAliasMap(selectionSet, fragmentMap) {
   return map;
 }
 function computeKeyObject(response, specifier, strict, aliasMap) {
-  var keyObj = Object.create(null);
+  var keyObj = /* @__PURE__ */ Object.create(null);
   var lastResponseKey;
   var lastActualKey;
   specifier.forEach(function(s) {
@@ -7230,8 +7605,8 @@ var InMemoryCache = function(_super) {
       config2 = {};
     }
     var _this = _super.call(this) || this;
-    _this.watches = new Set();
-    _this.typenameDocumentCache = new Map();
+    _this.watches = /* @__PURE__ */ new Set();
+    _this.typenameDocumentCache = /* @__PURE__ */ new Map();
     _this.makeVar = makeVar;
     _this.txCount = 0;
     _this.config = normalizeConfig(config2);
@@ -7279,7 +7654,7 @@ var InMemoryCache = function(_super) {
         }
       }
     });
-    new Set([this.data.group, this.optimisticData.group]).forEach(function(group) {
+    (/* @__PURE__ */ new Set([this.data.group, this.optimisticData.group])).forEach(function(group) {
       return group.resetCaching();
     });
   };
@@ -7435,7 +7810,7 @@ var InMemoryCache = function(_super) {
         _this.optimisticData = optimisticData;
       }
     };
-    var alreadyDirty = new Set();
+    var alreadyDirty = /* @__PURE__ */ new Set();
     if (onWatchUpdated && !this.txCount) {
       this.broadcastWatches(__assign(__assign({}, options), {
         onWatchUpdated: function(watch) {
@@ -7594,8 +7969,8 @@ var ObservableQuery = function(_super) {
         }
       };
     }) || this;
-    _this.observers = new Set();
-    _this.subscriptions = new Set();
+    _this.observers = /* @__PURE__ */ new Set();
+    _this.subscriptions = /* @__PURE__ */ new Set();
     _this.isTornDown = false;
     _this.options = options;
     _this.queryId = queryInfo.queryId || queryManager.generateQueryId();
@@ -8285,10 +8660,10 @@ var QueryInfo = function() {
       queryId = queryManager.generateQueryId();
     }
     this.queryId = queryId;
-    this.listeners = new Set();
+    this.listeners = /* @__PURE__ */ new Set();
     this.document = null;
     this.lastRequestId = 1;
-    this.subscriptions = new Set();
+    this.subscriptions = /* @__PURE__ */ new Set();
     this.stopped = false;
     this.dirty = false;
     this.observableQuery = null;
@@ -8539,18 +8914,18 @@ function shouldWriteResult(result, errorPolicy) {
   }
   return writeWithErrors;
 }
-var hasOwnProperty$6 = Object.prototype.hasOwnProperty;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 var QueryManager = function() {
   function QueryManager2(_a2) {
     var cache = _a2.cache, link = _a2.link, _b = _a2.queryDeduplication, queryDeduplication = _b === void 0 ? false : _b, onBroadcast = _a2.onBroadcast, _c = _a2.ssrMode, ssrMode = _c === void 0 ? false : _c, _d = _a2.clientAwareness, clientAwareness = _d === void 0 ? {} : _d, localState = _a2.localState, assumeImmutableResults = _a2.assumeImmutableResults;
     this.clientAwareness = {};
-    this.queries = new Map();
-    this.fetchCancelFns = new Map();
+    this.queries = /* @__PURE__ */ new Map();
+    this.fetchCancelFns = /* @__PURE__ */ new Map();
     this.transformCache = new (canUseWeakMap ? WeakMap : Map)();
     this.queryIdCounter = 1;
     this.requestIdCounter = 1;
     this.mutationIdCounter = 1;
-    this.inFlightLinkObservables = new Map();
+    this.inFlightLinkObservables = /* @__PURE__ */ new Map();
     this.cache = cache;
     this.link = link;
     this.queryDeduplication = queryDeduplication;
@@ -8561,7 +8936,7 @@ var QueryManager = function() {
     this.ssrMode = ssrMode;
     this.assumeImmutableResults = !!assumeImmutableResults;
     if (this.onBroadcast = onBroadcast) {
-      this.mutationStore = Object.create(null);
+      this.mutationStore = /* @__PURE__ */ Object.create(null);
     }
   }
   QueryManager2.prototype.stop = function() {
@@ -8697,7 +9072,7 @@ var QueryManager = function() {
         this.queries.forEach(function(_a2, queryId) {
           var observableQuery = _a2.observableQuery;
           var queryName = observableQuery && observableQuery.queryName;
-          if (!queryName || !hasOwnProperty$6.call(updateQueries_1, queryName)) {
+          if (!queryName || !hasOwnProperty.call(updateQueries_1, queryName)) {
             return;
           }
           var updater = updateQueries_1[queryName];
@@ -8800,7 +9175,7 @@ var QueryManager = function() {
     return this.fetchQueryObservable(queryId, options, networkStatus).promise;
   };
   QueryManager2.prototype.getQueryStore = function() {
-    var store2 = Object.create(null);
+    var store2 = /* @__PURE__ */ Object.create(null);
     this.queries.forEach(function(info, queryId) {
       store2[queryId] = {
         variables: info.variables,
@@ -8925,7 +9300,7 @@ var QueryManager = function() {
       }
     });
     if (this.mutationStore) {
-      this.mutationStore = Object.create(null);
+      this.mutationStore = /* @__PURE__ */ Object.create(null);
     }
     return this.cache.reset(options);
   };
@@ -8934,9 +9309,9 @@ var QueryManager = function() {
     if (include === void 0) {
       include = "active";
     }
-    var queries = new Map();
-    var queryNamesAndDocs = new Map();
-    var legacyQueryOptions = new Set();
+    var queries = /* @__PURE__ */ new Map();
+    var queryNamesAndDocs = /* @__PURE__ */ new Map();
+    var legacyQueryOptions = /* @__PURE__ */ new Set();
     if (Array.isArray(include)) {
       include.forEach(function(desc) {
         if (typeof desc === "string") {
@@ -9099,7 +9474,7 @@ var QueryManager = function() {
       };
       context = operation.context;
       if (deduplication) {
-        var byVariables_1 = inFlightLinkObservables_1.get(serverQuery) || new Map();
+        var byVariables_1 = inFlightLinkObservables_1.get(serverQuery) || /* @__PURE__ */ new Map();
         inFlightLinkObservables_1.set(serverQuery, byVariables_1);
         var varJson_1 = canonicalStringify(variables);
         observable = byVariables_1.get(varJson_1);
@@ -9203,7 +9578,7 @@ var QueryManager = function() {
   QueryManager2.prototype.refetchQueries = function(_a2) {
     var _this = this;
     var updateCache = _a2.updateCache, include = _a2.include, _b = _a2.optimistic, optimistic = _b === void 0 ? false : _b, _c = _a2.removeOptimistic, removeOptimistic = _c === void 0 ? optimistic ? makeUniqueId("refetchQueries") : void 0 : _c, onQueryUpdated = _a2.onQueryUpdated;
-    var includedQueriesById = new Map();
+    var includedQueriesById = /* @__PURE__ */ new Map();
     if (include) {
       this.getObservableQueries(include).forEach(function(oq, queryId) {
         includedQueriesById.set(queryId, {
@@ -9212,7 +9587,7 @@ var QueryManager = function() {
         });
       });
     }
-    var results = new Map();
+    var results = /* @__PURE__ */ new Map();
     if (updateCache) {
       this.cache.batch({
         update: updateCache,
@@ -9623,6 +9998,7 @@ var ApolloClient = function() {
   };
   return ApolloClient2;
 }();
+react.exports.createContext(void 0);
 let api;
 let http;
 let config;
@@ -9641,6 +10017,7 @@ function useUp(options) {
     api = config.get("override") || axios$1.create({
       baseURL: config.get("api.url")
     });
+    const [loading, setLoading] = react.exports.useState(false);
     if (!config.has("exclude.form")) {
       form = function(data, options2) {
         return new Form(data, __spreadValues(__spreadValues({}, {
@@ -9686,6 +10063,8 @@ function useUp(options) {
       form,
       formApi,
       store,
+      loading,
+      setLoading,
       graphqlClient,
       t: i18n == null ? void 0 : i18n.__.bind(i18n),
       __: i18n == null ? void 0 : i18n.__.bind(i18n),
@@ -9698,442 +10077,6 @@ function useUp(options) {
     }
   }
   return exported;
-}
-var react = { exports: {} };
-var react_production_min = {};
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-function toObject(val) {
-  if (val === null || val === void 0) {
-    throw new TypeError("Object.assign cannot be called with null or undefined");
-  }
-  return Object(val);
-}
-function shouldUseNative() {
-  try {
-    if (!Object.assign) {
-      return false;
-    }
-    var test1 = new String("abc");
-    test1[5] = "de";
-    if (Object.getOwnPropertyNames(test1)[0] === "5") {
-      return false;
-    }
-    var test2 = {};
-    for (var i = 0; i < 10; i++) {
-      test2["_" + String.fromCharCode(i)] = i;
-    }
-    var order2 = Object.getOwnPropertyNames(test2).map(function(n2) {
-      return test2[n2];
-    });
-    if (order2.join("") !== "0123456789") {
-      return false;
-    }
-    var test3 = {};
-    "abcdefghijklmnopqrst".split("").forEach(function(letter) {
-      test3[letter] = letter;
-    });
-    if (Object.keys(Object.assign({}, test3)).join("") !== "abcdefghijklmnopqrst") {
-      return false;
-    }
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
-var objectAssign = shouldUseNative() ? Object.assign : function(target, source) {
-  var from;
-  var to = toObject(target);
-  var symbols;
-  for (var s = 1; s < arguments.length; s++) {
-    from = Object(arguments[s]);
-    for (var key in from) {
-      if (hasOwnProperty.call(from, key)) {
-        to[key] = from[key];
-      }
-    }
-    if (getOwnPropertySymbols) {
-      symbols = getOwnPropertySymbols(from);
-      for (var i = 0; i < symbols.length; i++) {
-        if (propIsEnumerable.call(from, symbols[i])) {
-          to[symbols[i]] = from[symbols[i]];
-        }
-      }
-    }
-  }
-  return to;
-};
-/** @license React v17.0.2
- * react.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var l = objectAssign, n$1 = 60103, p$1 = 60106;
-react_production_min.Fragment = 60107;
-react_production_min.StrictMode = 60108;
-react_production_min.Profiler = 60114;
-var q$1 = 60109, r = 60110, t = 60112;
-react_production_min.Suspense = 60113;
-var u = 60115, v = 60116;
-if (typeof Symbol === "function" && Symbol.for) {
-  var w = Symbol.for;
-  n$1 = w("react.element");
-  p$1 = w("react.portal");
-  react_production_min.Fragment = w("react.fragment");
-  react_production_min.StrictMode = w("react.strict_mode");
-  react_production_min.Profiler = w("react.profiler");
-  q$1 = w("react.provider");
-  r = w("react.context");
-  t = w("react.forward_ref");
-  react_production_min.Suspense = w("react.suspense");
-  u = w("react.memo");
-  v = w("react.lazy");
-}
-var x = typeof Symbol === "function" && Symbol.iterator;
-function y(a) {
-  if (a === null || typeof a !== "object")
-    return null;
-  a = x && a[x] || a["@@iterator"];
-  return typeof a === "function" ? a : null;
-}
-function z(a) {
-  for (var b = "https://reactjs.org/docs/error-decoder.html?invariant=" + a, c = 1; c < arguments.length; c++)
-    b += "&args[]=" + encodeURIComponent(arguments[c]);
-  return "Minified React error #" + a + "; visit " + b + " for the full message or use the non-minified dev environment for full errors and additional helpful warnings.";
-}
-var A = {
-  isMounted: function() {
-    return false;
-  },
-  enqueueForceUpdate: function() {
-  },
-  enqueueReplaceState: function() {
-  },
-  enqueueSetState: function() {
-  }
-}, B = {};
-function C(a, b, c) {
-  this.props = a;
-  this.context = b;
-  this.refs = B;
-  this.updater = c || A;
-}
-C.prototype.isReactComponent = {};
-C.prototype.setState = function(a, b) {
-  if (typeof a !== "object" && typeof a !== "function" && a != null)
-    throw Error(z(85));
-  this.updater.enqueueSetState(this, a, b, "setState");
-};
-C.prototype.forceUpdate = function(a) {
-  this.updater.enqueueForceUpdate(this, a, "forceUpdate");
-};
-function D() {
-}
-D.prototype = C.prototype;
-function E(a, b, c) {
-  this.props = a;
-  this.context = b;
-  this.refs = B;
-  this.updater = c || A;
-}
-var F = E.prototype = new D();
-F.constructor = E;
-l(F, C.prototype);
-F.isPureReactComponent = true;
-var G = {
-  current: null
-}, H = Object.prototype.hasOwnProperty, I = {
-  key: true,
-  ref: true,
-  __self: true,
-  __source: true
-};
-function J(a, b, c) {
-  var e, d = {}, k = null, h = null;
-  if (b != null)
-    for (e in b.ref !== void 0 && (h = b.ref), b.key !== void 0 && (k = "" + b.key), b)
-      H.call(b, e) && !I.hasOwnProperty(e) && (d[e] = b[e]);
-  var g2 = arguments.length - 2;
-  if (g2 === 1)
-    d.children = c;
-  else if (1 < g2) {
-    for (var f2 = Array(g2), m2 = 0; m2 < g2; m2++)
-      f2[m2] = arguments[m2 + 2];
-    d.children = f2;
-  }
-  if (a && a.defaultProps)
-    for (e in g2 = a.defaultProps, g2)
-      d[e] === void 0 && (d[e] = g2[e]);
-  return {
-    $$typeof: n$1,
-    type: a,
-    key: k,
-    ref: h,
-    props: d,
-    _owner: G.current
-  };
-}
-function K(a, b) {
-  return {
-    $$typeof: n$1,
-    type: a.type,
-    key: b,
-    ref: a.ref,
-    props: a.props,
-    _owner: a._owner
-  };
-}
-function L(a) {
-  return typeof a === "object" && a !== null && a.$$typeof === n$1;
-}
-function escape(a) {
-  var b = {
-    "=": "=0",
-    ":": "=2"
-  };
-  return "$" + a.replace(/[=:]/g, function(a2) {
-    return b[a2];
-  });
-}
-var M = /\/+/g;
-function N(a, b) {
-  return typeof a === "object" && a !== null && a.key != null ? escape("" + a.key) : b.toString(36);
-}
-function O(a, b, c, e, d) {
-  var k = typeof a;
-  if (k === "undefined" || k === "boolean")
-    a = null;
-  var h = false;
-  if (a === null)
-    h = true;
-  else
-    switch (k) {
-      case "string":
-      case "number":
-        h = true;
-        break;
-      case "object":
-        switch (a.$$typeof) {
-          case n$1:
-          case p$1:
-            h = true;
-        }
-    }
-  if (h)
-    return h = a, d = d(h), a = e === "" ? "." + N(h, 0) : e, Array.isArray(d) ? (c = "", a != null && (c = a.replace(M, "$&/") + "/"), O(d, b, c, "", function(a2) {
-      return a2;
-    })) : d != null && (L(d) && (d = K(d, c + (!d.key || h && h.key === d.key ? "" : ("" + d.key).replace(M, "$&/") + "/") + a)), b.push(d)), 1;
-  h = 0;
-  e = e === "" ? "." : e + ":";
-  if (Array.isArray(a))
-    for (var g2 = 0; g2 < a.length; g2++) {
-      k = a[g2];
-      var f2 = e + N(k, g2);
-      h += O(k, b, c, f2, d);
-    }
-  else if (f2 = y(a), typeof f2 === "function")
-    for (a = f2.call(a), g2 = 0; !(k = a.next()).done; )
-      k = k.value, f2 = e + N(k, g2++), h += O(k, b, c, f2, d);
-  else if (k === "object")
-    throw b = "" + a, Error(z(31, b === "[object Object]" ? "object with keys {" + Object.keys(a).join(", ") + "}" : b));
-  return h;
-}
-function P(a, b, c) {
-  if (a == null)
-    return a;
-  var e = [], d = 0;
-  O(a, e, "", "", function(a2) {
-    return b.call(c, a2, d++);
-  });
-  return e;
-}
-function Q(a) {
-  if (a._status === -1) {
-    var b = a._result;
-    b = b();
-    a._status = 0;
-    a._result = b;
-    b.then(function(b2) {
-      a._status === 0 && (b2 = b2.default, a._status = 1, a._result = b2);
-    }, function(b2) {
-      a._status === 0 && (a._status = 2, a._result = b2);
-    });
-  }
-  if (a._status === 1)
-    return a._result;
-  throw a._result;
-}
-var R = {
-  current: null
-};
-function S() {
-  var a = R.current;
-  if (a === null)
-    throw Error(z(321));
-  return a;
-}
-var T = {
-  ReactCurrentDispatcher: R,
-  ReactCurrentBatchConfig: {
-    transition: 0
-  },
-  ReactCurrentOwner: G,
-  IsSomeRendererActing: {
-    current: false
-  },
-  assign: l
-};
-react_production_min.Children = {
-  map: P,
-  forEach: function(a, b, c) {
-    P(a, function() {
-      b.apply(this, arguments);
-    }, c);
-  },
-  count: function(a) {
-    var b = 0;
-    P(a, function() {
-      b++;
-    });
-    return b;
-  },
-  toArray: function(a) {
-    return P(a, function(a2) {
-      return a2;
-    }) || [];
-  },
-  only: function(a) {
-    if (!L(a))
-      throw Error(z(143));
-    return a;
-  }
-};
-react_production_min.Component = C;
-react_production_min.PureComponent = E;
-react_production_min.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = T;
-react_production_min.cloneElement = function(a, b, c) {
-  if (a === null || a === void 0)
-    throw Error(z(267, a));
-  var e = l({}, a.props), d = a.key, k = a.ref, h = a._owner;
-  if (b != null) {
-    b.ref !== void 0 && (k = b.ref, h = G.current);
-    b.key !== void 0 && (d = "" + b.key);
-    if (a.type && a.type.defaultProps)
-      var g2 = a.type.defaultProps;
-    for (f2 in b)
-      H.call(b, f2) && !I.hasOwnProperty(f2) && (e[f2] = b[f2] === void 0 && g2 !== void 0 ? g2[f2] : b[f2]);
-  }
-  var f2 = arguments.length - 2;
-  if (f2 === 1)
-    e.children = c;
-  else if (1 < f2) {
-    g2 = Array(f2);
-    for (var m2 = 0; m2 < f2; m2++)
-      g2[m2] = arguments[m2 + 2];
-    e.children = g2;
-  }
-  return {
-    $$typeof: n$1,
-    type: a.type,
-    key: d,
-    ref: k,
-    props: e,
-    _owner: h
-  };
-};
-react_production_min.createContext = function(a, b) {
-  b === void 0 && (b = null);
-  a = {
-    $$typeof: r,
-    _calculateChangedBits: b,
-    _currentValue: a,
-    _currentValue2: a,
-    _threadCount: 0,
-    Provider: null,
-    Consumer: null
-  };
-  a.Provider = {
-    $$typeof: q$1,
-    _context: a
-  };
-  return a.Consumer = a;
-};
-react_production_min.createElement = J;
-react_production_min.createFactory = function(a) {
-  var b = J.bind(null, a);
-  b.type = a;
-  return b;
-};
-react_production_min.createRef = function() {
-  return {
-    current: null
-  };
-};
-react_production_min.forwardRef = function(a) {
-  return {
-    $$typeof: t,
-    render: a
-  };
-};
-react_production_min.isValidElement = L;
-react_production_min.lazy = function(a) {
-  return {
-    $$typeof: v,
-    _payload: {
-      _status: -1,
-      _result: a
-    },
-    _init: Q
-  };
-};
-react_production_min.memo = function(a, b) {
-  return {
-    $$typeof: u,
-    type: a,
-    compare: b === void 0 ? null : b
-  };
-};
-react_production_min.useCallback = function(a, b) {
-  return S().useCallback(a, b);
-};
-react_production_min.useContext = function(a, b) {
-  return S().useContext(a, b);
-};
-react_production_min.useDebugValue = function() {
-};
-react_production_min.useEffect = function(a, b) {
-  return S().useEffect(a, b);
-};
-react_production_min.useImperativeHandle = function(a, b, c) {
-  return S().useImperativeHandle(a, b, c);
-};
-react_production_min.useLayoutEffect = function(a, b) {
-  return S().useLayoutEffect(a, b);
-};
-react_production_min.useMemo = function(a, b) {
-  return S().useMemo(a, b);
-};
-react_production_min.useReducer = function(a, b, c) {
-  return S().useReducer(a, b, c);
-};
-react_production_min.useRef = function(a) {
-  return S().useRef(a);
-};
-react_production_min.useState = function(a) {
-  return S().useState(a);
-};
-react_production_min.version = "17.0.2";
-{
-  react.exports = react_production_min;
 }
 var jsxRuntime = { exports: {} };
 var reactJsxRuntime_production_min = {};
@@ -10152,12 +10095,7 @@ if (typeof Symbol === "function" && Symbol.for) {
   g = h("react.element");
   reactJsxRuntime_production_min.Fragment = h("react.fragment");
 }
-var m = f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, n = Object.prototype.hasOwnProperty, p = {
-  key: true,
-  ref: true,
-  __self: true,
-  __source: true
-};
+var m = f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, n = Object.prototype.hasOwnProperty, p = { key: true, ref: true, __self: true, __source: true };
 function q(c, a, k) {
   var b, d = {}, e = null, l2 = null;
   k !== void 0 && (e = "" + k);
@@ -10168,14 +10106,7 @@ function q(c, a, k) {
   if (c && c.defaultProps)
     for (b in a = c.defaultProps, a)
       d[b] === void 0 && (d[b] = a[b]);
-  return {
-    $$typeof: g,
-    type: c,
-    key: e,
-    ref: l2,
-    props: d,
-    _owner: m.current
-  };
+  return { $$typeof: g, type: c, key: e, ref: l2, props: d, _owner: m.current };
 }
 reactJsxRuntime_production_min.jsx = q;
 reactJsxRuntime_production_min.jsxs = q;
