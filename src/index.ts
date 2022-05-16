@@ -1,5 +1,12 @@
-import {useUp} from "use-up"
+import {useUp} from "use-up";
+import {UpProvider, useUpProvider, UpContext} from "./UpProvider";
 
+/**
+ * Export useUp
+ */
 export {
-    useUp
-}
+    useUp,
+    UpProvider,
+    UpContext,
+    useUpProvider,
+};

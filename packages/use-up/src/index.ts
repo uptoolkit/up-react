@@ -11,6 +11,9 @@ import {
     ApolloClient,
     InMemoryCache
 } from "@apollo/client";
+import { createContext, useContext, useState } from 'react';
+
+export const UpContext = createContext(undefined);
 
 export let api: object | null | any;
 export let http: object | null | any;
@@ -40,7 +43,7 @@ export interface UpOptions {
     };
     graphql?: {
         url?: string; // Url endpoint of your API
-        client?: string; // Url endpoint of your API
+        client?: ApolloClient<any>; // Url endpoint of your API
     };
     translations?: Record<string, object | string>;
     locale?: string;
@@ -50,19 +53,17 @@ export interface UpOptions {
 
 export interface exportedVars {
     config: boolean;
+    loading: any;
+    setLoading?(state:boolean): any;
     api: boolean;
     http: boolean;
     i18n: boolean;
     form: boolean;
     formApi: boolean;
     store?: boolean;
-
     t?(key: string, data?: object, lang?: string): string | any;
-
     __?(key: string, data?: object, lang?: string): string | any;
-
     choice?(key: string, count?: number, data?: any, locale?: string): string | any;
-
     message?: MessageInstance;
     notification?: NotificationInstance;
 }
@@ -88,6 +89,8 @@ export function useUp(options?: UpOptions): exportedVars | any {
         api = config.get('override') || axios.create({
             baseURL: config.get('api.url'),
         });
+
+        const [loading, setLoading] = useState(false);
 
         // Define form helper and wrapper from the Form Lib
         if (!config.has('exclude.form')) {
@@ -154,6 +157,8 @@ export function useUp(options?: UpOptions): exportedVars | any {
             form,
             formApi,
             store,
+            loading,
+            setLoading,
             graphqlClient,
             t: i18n?.__.bind(i18n),
             __: i18n?.__.bind(i18n),
