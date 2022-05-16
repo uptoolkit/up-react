@@ -3524,7 +3524,7 @@ js-cookie@^2.2.1:
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
   integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
 
-js-form-helper@^1.0.9:
+js-form-helper@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/js-form-helper/-/js-form-helper-1.2.3.tgz#6919dd2ae843a0adced20dd4bf2fa638d9c93a9d"
   integrity sha512-qSDzaieVZfVUJ30VBGPs0x+qVwl9DL54Zgnqv0gSS7la1BsGE4hrguJKX1SY1ntfyjyUQYrQZF8tsjVRkMJjcg==
@@ -6313,10 +6313,10 @@ use-sync-external-store@^1.0.0:
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.1.0.tgz#3343c3fe7f7e404db70f8c687adf5c1652d34e82"
   integrity sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==
 
-use-up@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/use-up/-/use-up-1.1.0.tgz#d121ccb90f4bf3ced6b24fdba9d994f36e18d12d"
-  integrity sha512-QnV5+tiQIY4b22ion7iVNVniofyN2hUEsNeq5OZmn2XRiN/F+q10RFQUgvxpHJKMyl2JSx/UC2wds8+Aol0Mjg==
+use-up@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/use-up/-/use-up-1.1.1.tgz#66f077ebfb457da2cd7383a35b5c6a51b5a35de6"
+  integrity sha512-ujvUAXbQ3jx/bLDmlxRr2bhTQxVJw/XUqdsa2v+pBYBu/b4qS2ZlcfkRa9PC4cZWbbv6tXqbQ6sZJWkTPsfIrg==
   dependencies:
     "@apollo/client" "^3.4.16"
     "@cherrypulp/i18n" "^1.4.6"
@@ -6326,7 +6326,7 @@ use-up@^1.1.0:
     axios-es6 "^0.11.1"
     graphql "^15.6.1"
     js-config-helper "^1.1.0"
-    js-form-helper "^1.0.9"
+    js-form-helper "^1.2.3"
 
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

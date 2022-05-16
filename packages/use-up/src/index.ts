@@ -6,7 +6,7 @@ import {Store} from "@reduxjs/toolkit";
 import {message as messageAnt, notification as notificationAnt} from 'antd';
 import {MessageInstance} from "antd/lib/message";
 import {NotificationInstance} from "antd/es/notification";
-import Form from "js-form-helper";
+import {Form} from "js-form-helper";
 import {
     ApolloClient,
     InMemoryCache
