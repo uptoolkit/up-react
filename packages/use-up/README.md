@@ -62,7 +62,6 @@ useUp({
     url: '/'
   },
   storeMode: 'reactive', // could be reactive|redux
-  // store: store, // if defined you can define your redux store if you choose redux
   api: {
     url: 'https://uptoolkit/demo/api', // Replace with your api endpoint
   },
