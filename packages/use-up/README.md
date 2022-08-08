@@ -1,4 +1,4 @@
-# Use Up (part of Up React)
+# Use Up
 
 ## Why ?
 
@@ -39,7 +39,7 @@ In your React project just make :
 yarn add use-up #or npm i use-up --save
 ````
 
-REM : for more tools to use => you can checkout also up-react [https://github.com/uptoolkit/up-react](https://github.com/uptoolkit/up-react)
+REM : for more tools to use => you can check out also up-react [https://github.com/uptoolkit/up-react](https://github.com/uptoolkit/up-react)
 
 Then in your main app (likely very soon in your app instanciation), do :
 
@@ -49,7 +49,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import useUp from 'use-up';
+import {useUp} from 'use-up';
 
 //1. You must instanciate the useUp singleton
 useUp({
@@ -92,7 +92,7 @@ Then in your component you can simply use the useUp() helper :
 
 ````javascript
 import {useState} from 'react'
-import useUp from 'use-up';
+import {useUp} from 'use-up';
 
 function App() {
 
@@ -115,16 +115,16 @@ function App() {
 
 # Available variable helpers
 
-| Properties   |      Description      |  Link |
-|----------|:-------------:|------:|
-| config |  Config Helper | https://www.npmjs.com/package/js-config-helper |
-| http |    Axios instance   |   https://axios-http.com/ |
-| api | Axios instance with your api as baseUrl | https://axios-http.com/ |
-| i18n | Axios instance with your api as baseUrl | https://axios-http.com/ |
-| form | Form validation helper | https://www.npmjs.com/package/js-form-helper |
-| formApi | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
-| message | Message helper from AntDesign Ui | https://ant.design/components/message/ |
-| notification | Notification helper from AntDesign Ui | https://ant.design/components/notification/ |
+| Properties   |                   Description                   |  Link |
+|--------------|:-----------------------------------------------:|------:|
+| config       |                  Config Helper                  | https://www.npmjs.com/package/js-config-helper |
+| http         |                 Axios instance                  | https://axios-http.com/ |
+| api          |     Axios instance with your api as baseUrl     | https://axios-http.com/ |
+| i18n         |                   I18n Helper                   | https://www.npmjs.com/package/@cherrypulp/i18n |
+| form         |             Form validation helper              | https://www.npmjs.com/package/js-form-helper |
+| formApi      | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
+| message      |        Message helper from AntDesign Ui         | https://ant.design/components/message/ |
+| notification |      Notification helper from AntDesign Ui      | https://ant.design/components/notification/ |
 
 # What if I need to adapt or don't need a components ?
 
@@ -156,7 +156,7 @@ You can get full documentation or check our complete example :
 
 ### Discover the whole ecosystem of Up Toolkit
 
-Up Vue is a part of the Up Toolkit ecosystem a set of packages and utilities for changemakers.
+UseUp is a part of the Up Toolkit ecosystem a set of packages and utilities for change makers.
 
 For more information go to :
 
@@ -172,7 +172,7 @@ Everyone can contribute and propose any components or post an issues, make a sug
 # To dos :
 
 - [x] Testing using Jest
-- [x] Add Apollog GraphQL Client helper
+- [x] Add Apollo GraphQL Client helper
 - [x] Customising AntDesign style
 - [x] Documenting code
 - [x] Setting up Storybook
@@ -197,4 +197,4 @@ This package is also a [Treeware](https://treeware.earth).
 
 If you use it in production, then we kindly ask [**buy the world a tree**](https://plant.treeware.earth/uptoolkit/use-up) to thank us for our work.
 
-By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
+By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats!

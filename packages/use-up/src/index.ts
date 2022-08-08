@@ -1,5 +1,4 @@
 import {Config} from 'js-config-helper';
-/// <reference path="axios.d.ts" />
 import * as axios from 'axios';
 import I18n, {createI18n} from "@cherrypulp/i18n";
 import {Store} from "@reduxjs/toolkit";
@@ -11,7 +10,7 @@ import {
     ApolloClient,
     InMemoryCache
 } from "@apollo/client";
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const UpContext = createContext(undefined);
 
