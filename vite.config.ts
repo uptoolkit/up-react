@@ -1,7 +1,7 @@
-import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react'
-import * as path from 'path'
-import dts from 'vite-plugin-dts'
+import {defineConfig} from 'vite';
+import react from '@vitejs/plugin-react';
+import * as path from 'path';
+import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,9 +9,9 @@ export default defineConfig({
     build: {
         lib:
             {
-                entry: path.resolve(__dirname, 'src/index.ts'),
-                name: 'UpReact',
-                formats: ["es", "umd"],
+                entry: path.resolve(__dirname, 'src'),
+                name: 'use-up',
+                formats: ["cjs", 'es', 'umd'],
                 fileName: (format) => `index.${format}.js`
             }
         ,
@@ -20,14 +20,24 @@ export default defineConfig({
             // into your library
             external: [
                 'axios',
-                "antd"
+                "react",
+                "react-dom",
+                "classnames",
+                "antd",
+                "antd",
+                "js-config-helper",
+                "js-form-helper"
             ],
             output: {
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
-                    axios: 'axios',
-                    antd: 'Antd',
+                    'axios': 'axios',
+                    'js-config-helper': 'Config',
+                    'js-form-helper': 'Form',
+                    'react': 'React',
+                    'antd': 'antd',
+                    "react-dom": 'ReactDOM'
                 }
             }
         }

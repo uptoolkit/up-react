@@ -6,7 +6,8 @@
 
 ## Why ?
 
-🥸 : Bootstrapping a project is unexpectedly very difficult because there are so many choices, too many setups and configs to do before just working on a project...
+🥸 : Bootstrapping a project is unexpectedly very difficult because there are so many choices, too many setups and
+configs to do before just working on a project...
 
 😩 : "Hell yeah, you're right. Javascript fatigue..."
 
@@ -14,28 +15,30 @@
 
 - [React for the Javascript framework](https://reactjs.org/)
 - [Tailwind as a Front-End Utilities](https://tailwindcss.com/)
-- [DaisyUI a Tailwind components extension](https://daisyui.com/)
 - [AntDesign as Ui Library](https://ant.design/)
 - [Axios for the ajax request](https://axios-http.com/)
-- [I18n for the translations helpers](https://www.npmjs.com/package/@cherrypulp/i18n)
+- [Next I18n for the translations helpers](https://react.i18next.com/)
 - [JsConfigHelper for config provider](https://www.npmjs.com/package/js-config-helper)
 - [JsFormHelper as form helper](https://www.npmjs.com/package/js-form-helper)
-- [DayJS as date helper](https://day.js.org/)
 
 🧐 : "Mmh, interesting..."
 
-🥸 : At the best, you can just use our components or layouts making a breeze for your quick prototyping or web development with everything to start included and UP to date.
+🥸 : At the best, you can just use our components or layouts making a breeze for your quick prototyping or web
+development with everything to start included and UP to date.
 
 🧐 : "Mmh, yes but what if I want to..."
 
-🥸 : Shut ! I know your dev syndrom... At the minimum, you will have a good boilerplate and UP to you to
-override it when you will feel the need. Thanks to our "[convention over configuration philosophy](https://en.wikipedia.org/wiki/Convention_over_configuration)" and [S.O.L.I.D principle](https://en.wikipedia.org/wiki/SOLID) :-).
+🥸 : Shut ! I know your dev syndrom... At the minimum, you will have a good boilerplate and UP to you to override it
+when you will feel the need. Thanks to
+our "[convention over configuration philosophy](https://en.wikipedia.org/wiki/Convention_over_configuration)"
+and [S.O.L.I.D principle](https://en.wikipedia.org/wiki/SOLID) :-).
 
 😁 : "Ok now I want to start !!!"
 
 ## Getting started
 
-There is also a Next.js boilerplate available here : [https://github.com/uptoolkit/upfront-nextjs](https://github.com/uptoolkit/upfront-nextjs)
+There is also a Next.js boilerplate available
+here : [https://github.com/uptoolkit/upfront-nextjs](https://github.com/uptoolkit/upfront-nextjs)
 
 In your React project just make :
 
@@ -51,50 +54,59 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import useUp from 'use-up';
+import {useUp, setUp, UpProvider} from 'up-react';
 
-//1. You must instanciate the useUp singleton
-useUp({
+//1. You must instanciate the setUp method in your react bootstrap code
+const upConfig = {
   debug: true,
-  project : {
+  project: {
     name: 'Up Toolkit Demo',
     logo: {
       src: '/img/logo.svg',
     },
     url: '/'
   },
+  graphql: {
+    url: "https://api.mocki.io/v2/c4d7a195/graphql"
+  },
   storeMode: 'reactive', // could be reactive|vuex
-  // store: store, // if defined you can define your vuex store if you choose vuex
+  store: store, // if defined you can define a Store that you can reuse in your useUp
   api: {
     url: 'https://uptoolkit/demo/api', // Replace with your api endpoint
   },
-  translations: {
-    en_EN: {
-      hello: 'Hello World !',
-    },
-    fr_FR: {
-      hello: 'Bonjour le monde',
-    },
+  i18n: {
+    lng: "en_EN",
+    supportedLngs: ['en_EN', 'fr_FR'],
+    resources: {
+      en_EN: {
+        translation: {
+          hello: 'Hello World !',
+        }
+      },
+      fr_FR: {
+        translation: {
+          hello: 'Allo la terre !',
+        }
+      },
+    }
   },
-  locale: 'en_EN',
-  locales: [
-    'en_EN', 'fr_FR'
-  ],
-});
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UpProvider options={upConfig}>
+      <App/>
+    </UpProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
 ````
 
-Then in your component you can simply use the useUp() helper : 
+Then in your component you can simply use the useUp() helper :
 
 ````javascript
 import {useState} from 'react'
-import useUp from 'use-up';
+import {useUp} from 'up-react';
 
 function App() {
 
@@ -104,11 +116,24 @@ function App() {
     t, // translation helper
   } = useUp();
 
+  // Up Provider will automatically instanciate a graphqlClient
+  const {data, loading} = useQuery(gql`query Test{
+        todos {
+            id
+            description
+        }
+    }`);
+
   return (
     <div className="App">
       <header className="App-header">
-        {config.get('project.name')}
-        {t('hello')}
+        <h1>{config.get('project.name')}</h1>
+        <p>{t('hello')}</p>
+        <Skeleton loading={loading}>
+          {data && <ul>
+            {data.todos.map((t, k) => <li key={k}>{t.description}</li>)}
+          </ul>}
+        </Skeleton>
       </header>
     </div>
   )
@@ -117,27 +142,27 @@ function App() {
 
 # Available variable helpers
 
-| Properties   |      Description      |  Link |
-|----------|:-------------:|------:|
-| config |  Config Helper | https://www.npmjs.com/package/js-config-helper |
-| http |    Axios instance   |   https://axios-http.com/ |
-| api | Axios instance with your api as baseUrl | https://axios-http.com/ |
-| i18n | Axios instance with your api as baseUrl | https://axios-http.com/ |
-| form | Form validation helper | https://www.npmjs.com/package/js-form-helper |
+| Properties   |                   Description                   |  Link |
+|----------|:-----------------------------------------------:|------:|
+| config |                  Config Helper                  | https://www.npmjs.com/package/js-config-helper |
+| http |                 Axios instance                  |   https://axios-http.com/ |
+| api |     Axios instance with your api as baseUrl     | https://axios-http.com/ |
+| i18n |                 Next React I18n                 | https://react.i18next.com/ |
+| form |             Form validation helper              | https://www.npmjs.com/package/js-form-helper |
 | formApi | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
-| message | Message helper from AntDesign Ui | https://ant.design/components/message/ |
-| notification | Notification helper from AntDesign Ui | https://ant.design/components/notification/ |
+| message |        Message helper from AntDesign Ui         | https://ant.design/components/message/ |
+| notification |      Notification helper from AntDesign Ui      | https://ant.design/components/notification/ |
 
 # What if I need to adapt or don't need a components ?
 
-UseUp use a convention over configuration principle but also a S.O.L.I.D design pattern. 
+UseUp use a convention over configuration principle but also a S.O.L.I.D design pattern.
 
 It means that you can override everything if you follow the Typed interface conventions.
 
-To override an element in your initialisation config, just do : 
+To override an element in your initialisation config, just do :
 
 `````javascript
-useUp({
+index({
   override: {
     api: MyCustomApiService,
     message: MyOtherMessagePlugin
@@ -153,7 +178,7 @@ useUp({
 
 You can get full documentation or check our complete example :
 
-- [https://use-up.uptoolkit.com](https://vue.uptoolkit.com)
+- [https://uptoolkit.com/docs](https://vue.uptoolkit.com)
 - [https://github.com/uptoolkit/up-react/tree/main/example](https://github.com/uptoolkit/up-react/tree/main/example)
 
 ### Discover the whole ecosystem of Up Toolkit
@@ -175,9 +200,9 @@ Everyone can contribute and propose any components or post an issues, make a sug
 
 - [x] Testing using Jest
 - [x] Customising AntDesign style
-- [x] Documenting code
-- [x] Setting up Storybook
-- [x] More typehint and typescript
+- [v] Documenting code
+- [v] Setting up Storybook
+- [v] More typehint and typescript
 - [x] Add more useful components and libs :-)
 
 Any helps wanted !
@@ -196,6 +221,7 @@ MIT
 
 This package is also a [Treeware](https://treeware.earth).
 
-If you use it in production, then we kindly ask [**buy the world a tree**](https://plant.treeware.earth/uptoolkit/up-react) to thank us for our work.
+If you use it in production, then we kindly ask [**buy the world a
+tree**](https://plant.treeware.earth/uptoolkit/up-react) to thank us for our work.
 
 By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
