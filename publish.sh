@@ -24,8 +24,5 @@ vite build
 # Push to repository
 git add -A && git commit -m "${TYPE}: ${MESSAGE}" && git push
 
-# Publish the docs
-bash docs.sh
-
 # Publish to npm
 npm version $VERSION && npm publish
