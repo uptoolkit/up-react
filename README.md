@@ -143,14 +143,15 @@ function App() {
 # Available variable helpers
 
 | Properties   |                   Description                   |  Link |
-|----------|:-----------------------------------------------:|------:|
-| config |                  Config Helper                  | https://www.npmjs.com/package/js-config-helper |
-| http |                 Axios instance                  |   https://axios-http.com/ |
-| api |     Axios instance with your api as baseUrl     | https://axios-http.com/ |
-| i18n |                 Next React I18n                 | https://react.i18next.com/ |
-| form |             Form validation helper              | https://www.npmjs.com/package/js-form-helper |
-| formApi | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
-| message |        Message helper from AntDesign Ui         | https://ant.design/components/message/ |
+|--------------|:-----------------------------------------------:|------:|
+| config       |                  Config Helper                  | https://www.npmjs.com/package/js-config-helper |
+| http         |                 Axios instance                  |   https://axios-http.com/ |
+| graphql      |                 GraphQl Client                  |   https://www.apollographql.com/docs/react/ |
+| api          |     Axios instance with your api as baseUrl     | https://axios-http.com/ |
+| i18n         |                 Next React I18n                 | https://react.i18next.com/ |
+| form         |             Form validation helper              | https://www.npmjs.com/package/js-form-helper |
+| formApi      | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
+| message      |        Message helper from AntDesign Ui         | https://ant.design/components/message/ |
 | notification |      Notification helper from AntDesign Ui      | https://ant.design/components/notification/ |
 
 # What if I need to adapt or don't need a components ?
