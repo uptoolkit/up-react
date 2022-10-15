@@ -24,7 +24,7 @@ export default defineConfig({
                 "react-dom",
                 "classnames",
                 "antd",
-                "antd",
+                "i18next",
                 "js-config-helper",
                 "js-form-helper"
             ],
@@ -37,6 +37,7 @@ export default defineConfig({
                     'js-form-helper': 'Form',
                     'react': 'React',
                     'antd': 'antd',
+                    'i18next': 'i18next',
                     "react-dom": 'ReactDOM'
                 }
             }
