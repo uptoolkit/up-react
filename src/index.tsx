@@ -123,7 +123,7 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
             graphqlClient = config.get('graphql.client');
         } else if (config.has('graphql.url')) {
             graphqlClient = new ApolloClient({
-                link: new HttpLink({ uri: '/graphql', fetch }),
+                link: new HttpLink({ uri: options.graphql.url, fetch }),
                 cache: new InMemoryCache()
             });
         }

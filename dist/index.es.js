@@ -12,7 +12,7 @@ function de(h) {
   return h && h.__esModule && Object.prototype.hasOwnProperty.call(h, "default") ? h.default : h;
 }
 var R = { exports: {} };
-(function(h, l) {
+(function(h, u) {
   var d = typeof self < "u" ? self : he, p = function() {
     function n() {
       this.fetch = !1, this.DOMException = d.DOMException;
@@ -20,7 +20,7 @@ var R = { exports: {} };
     return n.prototype = d, new n();
   }();
   (function(n) {
-    (function(u) {
+    (function(l) {
       var c = {
         searchParams: "URLSearchParams" in n,
         iterable: "Symbol" in n && "iterator" in Symbol,
@@ -236,21 +236,21 @@ var R = { exports: {} };
         if (Z.indexOf(t) === -1)
           throw new RangeError("Invalid status code");
         return new y(null, { status: t, headers: { location: e } });
-      }, u.DOMException = n.DOMException;
+      }, l.DOMException = n.DOMException;
       try {
-        new u.DOMException();
+        new l.DOMException();
       } catch {
-        u.DOMException = function(t, r) {
+        l.DOMException = function(t, r) {
           this.message = t, this.name = r;
           var a = Error(t);
           this.stack = a.stack;
-        }, u.DOMException.prototype = Object.create(Error.prototype), u.DOMException.prototype.constructor = u.DOMException;
+        }, l.DOMException.prototype = Object.create(Error.prototype), l.DOMException.prototype.constructor = l.DOMException;
       }
       function B(e, t) {
         return new Promise(function(r, a) {
           var s = new m(e, t);
           if (s.signal && s.signal.aborted)
-            return a(new u.DOMException("Aborted", "AbortError"));
+            return a(new l.DOMException("Aborted", "AbortError"));
           var i = new XMLHttpRequest();
           function v() {
             i.abort();
@@ -269,7 +269,7 @@ var R = { exports: {} };
           }, i.ontimeout = function() {
             a(new TypeError("Network request failed"));
           }, i.onabort = function() {
-            a(new u.DOMException("Aborted", "AbortError"));
+            a(new l.DOMException("Aborted", "AbortError"));
           }, i.open(s.method, s.url, !0), s.credentials === "include" ? i.withCredentials = !0 : s.credentials === "omit" && (i.withCredentials = !1), "responseType" in i && c.blob && (i.responseType = "blob"), s.headers.forEach(function(g, T) {
             i.setRequestHeader(T, g);
           }), s.signal && (s.signal.addEventListener("abort", v), i.onreadystatechange = function() {
@@ -277,16 +277,16 @@ var R = { exports: {} };
           }), i.send(typeof s._bodyInit > "u" ? null : s._bodyInit);
         });
       }
-      return B.polyfill = !0, n.fetch || (n.fetch = B, n.Headers = o, n.Request = m, n.Response = y), u.Headers = o, u.Request = m, u.Response = y, u.fetch = B, Object.defineProperty(u, "__esModule", { value: !0 }), u;
+      return B.polyfill = !0, n.fetch || (n.fetch = B, n.Headers = o, n.Request = m, n.Response = y), l.Headers = o, l.Request = m, l.Response = y, l.fetch = B, Object.defineProperty(l, "__esModule", { value: !0 }), l;
     })({});
   })(p), p.fetch.ponyfill = !0, delete p.fetch.polyfill;
   var b = p;
-  l = b.fetch, l.default = b.fetch, l.fetch = b.fetch, l.Headers = b.Headers, l.Request = b.Request, l.Response = b.Response, h.exports = l;
+  u = b.fetch, u.default = b.fetch, u.fetch = b.fetch, u.Headers = b.Headers, u.Request = b.Request, u.Response = b.Response, h.exports = u;
 })(R, R.exports);
 const pe = /* @__PURE__ */ de(R.exports);
 let O, P, f, ye, M, H, L, k, D, A, N = !1;
-const be = async function(l) {
-  return f = new ie(l), P = f.get("override.http") || q.create(), O = f.get("override") || q.create({
+const be = async function(u) {
+  return f = new ie(u), P = f.get("override.http") || q.create(), O = f.get("override") || q.create({
     baseURL: f.get("api.url")
   }), f.has("exclude.form") || (M = function(d, p) {
     return new C(d, {
@@ -298,9 +298,9 @@ const be = async function(l) {
       http: O,
       ...p
     });
-  }), f.has("exclude.message") || (L = f.get("override.message") || oe), f.has("exclude.notification") || (k = f.get("override.notification") || ne), f.has("exclude.i18n") || l.i18n && await x.use(le).init(l.i18n), f.has("exclude.graphql") || (f.has("graphql.client") ? D = f.get("graphql.client") : f.has("graphql.url") && (D = new se({
+  }), f.has("exclude.message") || (L = f.get("override.message") || oe), f.has("exclude.notification") || (k = f.get("override.notification") || ne), f.has("exclude.i18n") || u.i18n && await x.use(le).init(u.i18n), f.has("exclude.graphql") || (f.has("graphql.client") ? D = f.get("graphql.client") : f.has("graphql.url") && (D = new se({
     link: new ae({
-      uri: "/graphql",
+      uri: u.graphql.url,
       fetch: pe
     }),
     cache: new fe()
@@ -322,7 +322,7 @@ const be = async function(l) {
 }, me = ee({});
 function Oe({
   options: h,
-  children: l
+  children: u
 }) {
   const [d, p] = te();
   return re(() => {
@@ -335,7 +335,7 @@ function Oe({
     value: d,
     children: /* @__PURE__ */ U(ue, {
       client: d.graphqlClient,
-      children: l
+      children: u
     })
   }) : /* @__PURE__ */ U(ce, {});
 }
