@@ -1,14 +1,17 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import "antd/dist/antd.css";
-import './index.css';
-import App from './App';
+/* eslint-disable import/export */
+import { cleanup, render } from '@testing-library/react'
+import { afterEach } from 'vitest'
 import {UpProvider} from "../src";
 
-ReactDOM.render(
-    <React.StrictMode>
-        <UpProvider options={{
-            debug: true,
+afterEach(() => {
+  cleanup()
+})
+
+const customRender = (ui: React.ReactElement, options = {}) =>
+    render(ui, {
+      // wrap provider(s) here if needed
+        wrapper: ({ children }) => <UpProvider options={{
+            debug: false,
             project: {
                 name: 'Up Toolkit Demo',
                 logo: {
@@ -41,8 +44,12 @@ ReactDOM.render(
                 }
             },
         }}>
-            <App/>
-        </UpProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+            {children}
+        </UpProvider>,
+      ...options,
+    })
+
+export * from '@testing-library/react'
+export { default as userEvent } from '@testing-library/user-event'
+// override render export
+export { customRender as render }

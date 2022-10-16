@@ -4,15 +4,18 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "skipLibCheck": false,
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES6",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx"
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "esModuleInterop": false,
+    "moduleResolution": "node",
+    "types": ["vitest/globals"]
   },
   "include": ["./src"]
 }

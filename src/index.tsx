@@ -6,8 +6,9 @@ import {message as messageAnt, notification as notificationAnt} from 'antd';
 import {MessageInstance} from "antd/lib/message";
 import {NotificationInstance} from "antd/es/notification";
 import {Form} from "js-form-helper";
+import fetch from 'cross-fetch';
 import {
-    ApolloClient, ApolloProvider,
+    ApolloClient, ApolloProvider, HttpLink,
     InMemoryCache, NormalizedCacheObject
 } from "@apollo/client";
 import i18next, {InitOptions, TFunction} from 'i18next';
@@ -23,7 +24,7 @@ let message: MessageInstance | null;
 let notification: NotificationInstance | null;
 let graphqlClient: ApolloClient<any> | any;
 
-export interface UpOptions<StoreType> {
+export interface UpOptions<Store = any> {
     debug?: boolean,
     project?: {
         name: string,
@@ -34,7 +35,7 @@ export interface UpOptions<StoreType> {
     };
     i18n?: InitOptions;
     storeMode?: "reactive" | "redux";
-    store?: StoreType;
+    store?: Store;
     api?: {
         url: string; // Url endpoint of your API
     };
@@ -45,7 +46,7 @@ export interface UpOptions<StoreType> {
     exclude?: string[];
 }
 
-export interface exportedVars<Store> {
+export interface exportedVars<Store = any> {
     config: Config;
     api: AxiosInstance;
     http: AxiosInstance;
@@ -68,7 +69,7 @@ export let UpInit = false;
  *
  * @param options
  */
-export const setUp = async function setUp<Store>(options): Promise<exportedVars<Store>> {
+export const setUp = async function setUp<Store = any>(options: UpOptions<Store>): Promise<exportedVars<Store>> {
 
     config = new Config(options);
 
@@ -110,9 +111,11 @@ export const setUp = async function setUp<Store>(options): Promise<exportedVars<
     }
 
     if (!config.has('exclude.i18n')) {
-        await i18next
-            .use(initReactI18next)
-            .init(options.i18n);
+        if (options.i18n) {
+            await i18next
+                .use(initReactI18next)
+                .init(options.i18n);
+        }
     }
 
     if (!config.has('exclude.graphql')) {
@@ -120,7 +123,7 @@ export const setUp = async function setUp<Store>(options): Promise<exportedVars<
             graphqlClient = config.get('graphql.client');
         } else if (config.has('graphql.url')) {
             graphqlClient = new ApolloClient({
-                uri: config.get('graphql.url'),
+                link: new HttpLink({ uri: '/graphql', fetch }),
                 cache: new InMemoryCache()
             });
         }
@@ -153,7 +156,7 @@ export const setUp = async function setUp<Store>(options): Promise<exportedVars<
  * useUp helper function
  *
  */
-export const useUp = function <Store>(): exportedVars<Store> {
+export const useUp = function <Store = any>(): exportedVars<Store> {
 
     if (!UpInit) {
         console.warn('Up is not initialized, you must run setUp() first or add an UpProvider !');
@@ -162,22 +165,23 @@ export const useUp = function <Store>(): exportedVars<Store> {
     return exported;
 }
 
-export interface Props {
+export interface Props<Store = any> {
     options: UpOptions<Store>,
     children?: React.ReactNode;
 }
 
 export const UpContext = createContext({});
 
-export function UpProvider<T = unknown>({options, children}: Props) {
+export function UpProvider<T = any>({options, children}: Props<T>) {
 
     const [up, setInit] = useState<null | exportedVars<T>>();
 
     useEffect(() => {
-        setUp(options).then((data) => {
-            // @ts-ignore
+        async function getUp() {
+            const data = await setUp<T>(options);
             setInit(data);
-        });
+        }
+        getUp();
     }, []);
 
     if (!up) {

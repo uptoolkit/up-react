@@ -5,7 +5,7 @@ import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), dts],
+    plugins: [react(), dts()],
     optimizeDeps: {
         include: ['react/jsx-runtime'],
     },
@@ -54,5 +54,11 @@ export default defineConfig({
                 }
             }
         }
-    }
+    },
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './tests/setup.ts',
+        css: false,
+    },
 })

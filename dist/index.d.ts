@@ -7,7 +7,7 @@ import { NotificationInstance } from "antd/es/notification";
 import { Form } from "js-form-helper";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import i18next, { InitOptions, TFunction } from 'i18next';
-export interface UpOptions<StoreType> {
+export interface UpOptions<Store = any> {
     debug?: boolean;
     project?: {
         name: string;
@@ -18,7 +18,7 @@ export interface UpOptions<StoreType> {
     };
     i18n?: InitOptions;
     storeMode?: "reactive" | "redux";
-    store?: StoreType;
+    store?: Store;
     api?: {
         url: string;
     };
@@ -28,7 +28,7 @@ export interface UpOptions<StoreType> {
     };
     exclude?: string[];
 }
-export interface exportedVars<Store> {
+export interface exportedVars<Store = any> {
     config: Config;
     api: AxiosInstance;
     http: AxiosInstance;
@@ -48,15 +48,15 @@ export declare let UpInit: boolean;
  *
  * @param options
  */
-export declare const setUp: <Store_1>(options: any) => Promise<exportedVars<Store_1>>;
+export declare const setUp: <Store_1 = any>(options: UpOptions<Store_1>) => Promise<exportedVars<Store_1>>;
 /**
  * useUp helper function
  *
  */
-export declare const useUp: <Store_1>() => exportedVars<Store_1>;
-export interface Props {
+export declare const useUp: <Store_1 = any>() => exportedVars<Store_1>;
+export interface Props<Store = any> {
     options: UpOptions<Store>;
     children?: React.ReactNode;
 }
 export declare const UpContext: React.Context<{}>;
-export declare function UpProvider<T = unknown>({ options, children }: Props): JSX.Element;
+export declare function UpProvider<T = any>({ options, children }: Props<T>): JSX.Element;
