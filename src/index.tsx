@@ -2,7 +2,6 @@ import {Store} from "@reduxjs/toolkit";
 import React, {createContext, useEffect, useState} from "react";
 import {Config} from 'js-config-helper';
 import axios, {AxiosInstance} from 'axios';
-import {ConfigProvider} from 'antd';
 import {message as messageAnt, notification as notificationAnt} from 'antd';
 import {MessageInstance} from "antd/lib/message";
 import {NotificationInstance} from "antd/es/notification";
@@ -11,7 +10,7 @@ import {
     ApolloClient, ApolloProvider,
     InMemoryCache, NormalizedCacheObject
 } from "@apollo/client";
-import i18next, {InitOptions, Resource, TFunction} from 'i18next';
+import i18next, {InitOptions, TFunction} from 'i18next';
 import {initReactI18next} from "react-i18next";
 
 let api: object | null | any;

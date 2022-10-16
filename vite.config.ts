@@ -6,6 +6,9 @@ import dts from 'vite-plugin-dts';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), dts],
+    optimizeDeps: {
+        include: ['react/jsx-runtime'],
+    },
     build: {
         lib:
             {
@@ -21,11 +24,16 @@ export default defineConfig({
             external: [
                 'axios',
                 "react",
+                "react/jsx-runtime",
                 "react-dom",
                 "classnames",
                 "antd",
                 "i18next",
+                "react-i18next",
+                "@reduxjs/toolkit",
                 "js-config-helper",
+                "@apollo/client",
+                "object-assign",
                 "js-form-helper"
             ],
             output: {
@@ -36,8 +44,12 @@ export default defineConfig({
                     'js-config-helper': 'Config',
                     'js-form-helper': 'Form',
                     'react': 'React',
+                    'react/jsx-runtime': 'jsxRuntime',
                     'antd': 'antd',
                     'i18next': 'i18next',
+                    'object-assign': 'object-assign',
+                    'react-i18next': 'reactI18next',
+                    '@apollo/client': 'apolloClient',
                     "react-dom": 'ReactDOM'
                 }
             }
