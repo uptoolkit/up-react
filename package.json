@@ -25,6 +25,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "publish": "bash publish.sh",
     "types": "npx tsc --declaration --allowJs --emitDeclarationOnly --outDir dist",
     "test": "vitest",
     "test:ui": "vitest --ui"
