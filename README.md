@@ -69,7 +69,7 @@ const upConfig = {
   graphql: {
     url: "https://api.mocki.io/v2/c4d7a195/graphql"
   },
-  storeMode: 'reactive', // could be reactive|vuex
+  storeMode: 'reactive', // could be reactive|redux
   store: store, // if defined you can define a Store that you can reuse in your useUp
   api: {
     url: 'https://uptoolkit/demo/api', // Replace with your api endpoint
