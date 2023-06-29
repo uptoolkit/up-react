@@ -45,8 +45,8 @@ export interface exportedVars<Store = any> {
     api: AxiosInstance;
     http: AxiosInstance;
     i18n: typeof i18next;
-    form: (values: any, options: any) => Form;
-    formApi: (values: any, options: any) => Form;
+    form: (values?: any, options?: any) => Form;
+    formApi: (values?: any, options?: any) => Form;
     graphqlClient: any;
     store?: Store;
     t: TFunction;
