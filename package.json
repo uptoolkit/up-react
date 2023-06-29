@@ -1,7 +1,7 @@
 {
   "name": "up-react",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
-  "version": "18.1.10",
+  "version": "18.1.11",
   "files": [
     "dist",
     "types",
