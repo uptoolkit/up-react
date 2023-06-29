@@ -2,10 +2,7 @@ import { Store } from "@reduxjs/toolkit";
 import React from "react";
 import { Config } from 'js-config-helper';
 import { AxiosInstance } from 'axios';
-import { MessageInstance } from "antd/lib/message";
-import { NotificationInstance } from "antd/es/notification";
 import { Form } from "js-form-helper";
-import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import i18next, { InitOptions, TFunction } from 'i18next';
 export interface UpOptions<Store = any> {
     debug?: boolean;
@@ -24,7 +21,7 @@ export interface UpOptions<Store = any> {
     };
     graphql?: {
         url?: string;
-        client?: ApolloClient<any>;
+        client?: any;
     };
     exclude?: string[];
 }
@@ -35,11 +32,9 @@ export interface exportedVars<Store = any> {
     i18n: typeof i18next;
     form: Form;
     formApi: Form;
-    graphqlClient: ApolloClient<NormalizedCacheObject>;
+    graphqlClient: any;
     store?: Store;
     t: TFunction;
-    message?: MessageInstance;
-    notification?: NotificationInstance;
 }
 export declare let exported: exportedVars<Store> | any;
 export declare let UpInit: boolean;
@@ -59,4 +54,4 @@ export interface Props<Store = any> {
     children?: React.ReactNode;
 }
 export declare const UpContext: React.Context<{}>;
-export declare function UpProvider<T = any>({ options, children }: Props<T>): JSX.Element;
+export declare function UpProvider<T = any>({ options, children }: Props<T>): import("react/jsx-runtime").JSX.Element;

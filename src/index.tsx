@@ -1,18 +1,12 @@
 import {Store} from "@reduxjs/toolkit";
-import React, {createContext, useEffect, useState} from "react";
+import React, {createContext, useCallback, useEffect, useMemo, useState} from "react";
 import {Config} from 'js-config-helper';
 import axios, {AxiosInstance} from 'axios';
-import {message as messageAnt, notification as notificationAnt} from 'antd';
-import {MessageInstance} from "antd/lib/message";
-import {NotificationInstance} from "antd/es/notification";
 import {Form} from "js-form-helper";
-import fetch from 'cross-fetch';
-import {
-    ApolloClient, ApolloProvider, HttpLink,
-    InMemoryCache, NormalizedCacheObject
-} from "@apollo/client";
 import i18next, {InitOptions, TFunction} from 'i18next';
 import {initReactI18next} from "react-i18next";
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+//import {ApolloClient} from "@apollo/client";
 
 let api: object | null | any;
 let http: object | null | any;
@@ -20,9 +14,9 @@ let config: any;
 let store: Store<object> | unknown | null;
 let form: any | null;
 let formApi: any | null;
-let message: MessageInstance | null;
-let notification: NotificationInstance | null;
-let graphqlClient: ApolloClient<any> | any;
+//let message: MessageInstance | null;
+//let notification: NotificationInstance | null;
+//let graphqlClient: ApolloClient<any> | any;
 
 export interface UpOptions<Store = any> {
     debug?: boolean,
@@ -41,7 +35,7 @@ export interface UpOptions<Store = any> {
     };
     graphql?: {
         url?: string; // Url endpoint of your API
-        client?: ApolloClient<any>; // Url endpoint of your API
+        client?: any; // Url endpoint of your API
     };
     exclude?: string[];
 }
@@ -53,11 +47,11 @@ export interface exportedVars<Store = any> {
     i18n: typeof i18next;
     form: Form;
     formApi: Form;
-    graphqlClient: ApolloClient<NormalizedCacheObject>;
+    graphqlClient: any;
     store?: Store;
     t: TFunction;
-    message?: MessageInstance;
-    notification?: NotificationInstance;
+    //message?: MessageInstance;
+    //notification?: NotificationInstance;
 }
 
 export let exported: exportedVars<Store> | any;
@@ -102,13 +96,13 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         }
     }
 
-    if (!config.has('exclude.message')) {
+    /*if (!config.has('exclude.message')) {
         message = config.get('override.message') || messageAnt;
     }
 
     if (!config.has('exclude.notification')) {
         notification = config.get('override.notification') || notificationAnt;
-    }
+    }*/
 
     if (!config.has('exclude.i18n')) {
         if (options.i18n) {
@@ -118,12 +112,14 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         }
     }
 
+    let graphqlClient;
+
     if (!config.has('exclude.graphql')) {
         if (config.has('graphql.client')) {
             graphqlClient = config.get('graphql.client');
-        } else if (config.has('graphql.url')) {
+        } else {
             graphqlClient = new ApolloClient({
-                link: new HttpLink({ uri: options.graphql.url, fetch }),
+                uri: options.graphql.url,
                 cache: new InMemoryCache()
             });
         }
@@ -139,8 +135,8 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         store,
         graphqlClient,
         t: i18next.t,
-        message: message,
-        notification: notification,
+        //message: message,
+        //notification: notification,
     };
 
     if (config.has('debug')) {
@@ -174,24 +170,24 @@ export const UpContext = createContext({});
 
 export function UpProvider<T = any>({options, children}: Props<T>) {
 
-    const [up, setInit] = useState<null | exportedVars<T>>();
+    const [loading, setLoading] = useState(true);
+    const [up, setInitUp] = useState<exportedVars>();
+
+    const initUp = async () => {
+        const up = await setUp(options);
+        setInitUp(up);
+        setLoading(false);
+    }
 
     useEffect(() => {
-        async function getUp() {
-            const data = await setUp<T>(options);
-            setInit(data);
-        }
-        getUp();
+        initUp().then(() => console.log('loaded'));
     }, []);
 
     if (!up) {
-        return <></>;
+        return <></>
     }
 
-    return (
-        <UpContext.Provider
-            value={up}
-        >
+    return (<UpContext.Provider value={up}>
             <ApolloProvider client={up.graphqlClient}>
                 {children}
             </ApolloProvider>

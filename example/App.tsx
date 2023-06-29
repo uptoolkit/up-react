@@ -1,8 +1,8 @@
 import * as React from 'react';
 import './App.css';
 import {useUp} from "../src";
-import {gql, useQuery} from "@apollo/client";
 import {Skeleton} from "antd";
+import {gql, useQuery} from "@apollo/client";
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1 className={"test-config"}>{config.get('project.name')}</h1>
+                <h1 className={"test-config"}>{config.get('project.name') as string}</h1>
                 <p className={"test-i18n"}>{t('hello')}</p>
                 {loading && <>Loading...</>}
                 <Skeleton loading={loading}>

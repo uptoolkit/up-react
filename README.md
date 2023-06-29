@@ -14,8 +14,6 @@ configs to do before just working on a project...
 🥸 : Up React help you to have everything you need to start for creating a webapp as simple as that :
 
 - [React for the Javascript framework](https://reactjs.org/)
-- [Tailwind as a Front-End Utilities](https://tailwindcss.com/)
-- [AntDesign as Ui Library](https://ant.design/)
 - [Axios for the ajax request](https://axios-http.com/)
 - [Next I18n for the translations helpers](https://react.i18next.com/)
 - [JsConfigHelper for config provider](https://www.npmjs.com/package/js-config-helper)
@@ -93,11 +91,9 @@ const upConfig = {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
     <UpProvider options={upConfig}>
       <App/>
-    </UpProvider>
-  </React.StrictMode>,
+    </UpProvider>,
   document.getElementById('root')
 )
 ````
@@ -151,8 +147,6 @@ function App() {
 | i18n         |                 Next React I18n                 | https://react.i18next.com/ |
 | form         |             Form validation helper              | https://www.npmjs.com/package/js-form-helper |
 | formApi      | Form validation helper with your Api as baseUrl | https://www.npmjs.com/package/js-form-helper |
-| message      |        Message helper from AntDesign Ui         | https://ant.design/components/message/ |
-| notification |      Notification helper from AntDesign Ui      | https://ant.design/components/notification/ |
 
 # What if I need to adapt or don't need a components ?
 
@@ -200,7 +194,7 @@ Everyone can contribute and propose any components or post an issues, make a sug
 # To dos :
 
 - [x] Testing using Jest
-- [x] Customising AntDesign style
+- [x] Help wanted to update package
 - [v] Documenting code
 - [v] Setting up Storybook
 - [v] More typehint and typescript
