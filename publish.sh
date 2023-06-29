@@ -25,4 +25,4 @@ vite build
 git add -A && git commit -m "${TYPE}: ${MESSAGE}" && git push
 
 # Publish to npm
-npm version $VERSION && npm publish
+npm version $VERSION
