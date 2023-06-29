@@ -5,7 +5,8 @@ import axios, {AxiosInstance} from 'axios';
 import {Form} from "js-form-helper";
 import i18next, {InitOptions, TFunction} from 'i18next';
 import {initReactI18next} from "react-i18next";
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
+import {setContext} from "@apollo/client/link/context";
 //import {ApolloClient} from "@apollo/client";
 
 let api: object | null | any;
@@ -118,8 +119,22 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         if (config.has('graphql.client')) {
             graphqlClient = config.get('graphql.client');
         } else {
-            graphqlClient = new ApolloClient({
+            const apolloHttpLink = createHttpLink({
                 uri: options.graphql.url,
+            })
+
+            const apolloAuthContext = setContext(async (_, {headers}) => {
+                const accessToken = localStorage.getItem('accessToken')
+                return {
+                    headers: {
+                        ...headers,
+                        Authorization: accessToken ? `Bearer ${accessToken}` : ''
+                    },
+                }
+            })
+
+            graphqlClient = new ApolloClient({
+                link: apolloAuthContext.concat(apolloHttpLink),
                 cache: new InMemoryCache()
             });
         }
