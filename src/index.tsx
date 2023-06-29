@@ -45,8 +45,8 @@ export interface exportedVars<Store = any> {
     api: AxiosInstance;
     http: AxiosInstance;
     i18n: typeof i18next;
-    form: Form;
-    formApi: Form;
+    form: (values: any, options: any) => Form;
+    formApi: (values: any, options: any) => Form;
     graphqlClient: any;
     store?: Store;
     t: TFunction;
@@ -168,8 +168,14 @@ export interface Props<Store = any> {
 
 export const UpContext = createContext({});
 
+/**
+ * UpProvider should be wrapped in the early stage of your app
+ *
+ * @param options
+ * @param children
+ * @constructor
+ */
 export function UpProvider<T = any>({options, children}: Props<T>) {
-
     const [loading, setLoading] = useState(true);
     const [up, setInitUp] = useState<exportedVars>();
 
