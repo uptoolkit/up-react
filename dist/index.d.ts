@@ -30,8 +30,8 @@ export interface exportedVars<Store = any> {
     api: AxiosInstance;
     http: AxiosInstance;
     i18n: typeof i18next;
-    form: Form;
-    formApi: Form;
+    form: (values: any, options: any) => Form;
+    formApi: (values: any, options: any) => Form;
     graphqlClient: any;
     store?: Store;
     t: TFunction;
@@ -54,4 +54,11 @@ export interface Props<Store = any> {
     children?: React.ReactNode;
 }
 export declare const UpContext: React.Context<{}>;
+/**
+ * UpProvider should be wrapped in the early stage of your app
+ *
+ * @param options
+ * @param children
+ * @constructor
+ */
 export declare function UpProvider<T = any>({ options, children }: Props<T>): import("react/jsx-runtime").JSX.Element;
