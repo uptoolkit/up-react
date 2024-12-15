@@ -1,5 +1,5 @@
 {
-  "name": "up-react",
+  "name": "upreact",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
   "version": "20.0.0",
   "tsup": {
