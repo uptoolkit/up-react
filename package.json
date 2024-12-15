@@ -1,7 +1,8 @@
 {
-  "name": "upreact",
+  "name": "@daniel_sum/up-react",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
   "version": "20.1.0",
+  "license": "MIT",
   "tsup": {
     "entry": [
       "src/index.tsx"
