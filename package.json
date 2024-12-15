@@ -1,7 +1,7 @@
 {
   "name": "up-react",
   "description": "React toolkit of multiple plugins to prototype your app quickly",
-  "version": "19.0.1",
+  "version": "20.0.0",
   "tsup": {
     "entry": [
       "src/index.tsx"
