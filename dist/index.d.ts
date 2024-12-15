@@ -1,10 +1,11 @@
-import { Store } from "@reduxjs/toolkit";
-import React from "react";
+import * as react_jsx_runtime from 'react/jsx-runtime';
+import React from 'react';
 import { Config } from 'js-config-helper';
 import { AxiosInstance } from 'axios';
-import { Form } from "js-form-helper";
+import { Form } from 'js-form-helper';
 import i18next, { InitOptions, TFunction } from 'i18next';
-export interface UpOptions<Store = any> {
+
+interface UpOptions {
     debug?: boolean;
     project?: {
         name: string;
@@ -14,8 +15,6 @@ export interface UpOptions<Store = any> {
         };
     };
     i18n?: InitOptions;
-    storeMode?: "reactive" | "redux";
-    store?: Store;
     api?: {
         url: string;
     };
@@ -24,8 +23,10 @@ export interface UpOptions<Store = any> {
         client?: any;
     };
     exclude?: string[];
+    loading?: boolean;
+    setLoading?: (loading: boolean) => void;
 }
-export interface exportedVars<Store = any> {
+interface exportedVars {
     config: Config;
     api: AxiosInstance;
     http: AxiosInstance;
@@ -33,27 +34,26 @@ export interface exportedVars<Store = any> {
     form: (values?: any, options?: any) => Form;
     formApi: (values?: any, options?: any) => Form;
     graphqlClient: any;
-    store?: Store;
     t: TFunction;
 }
-export declare let exported: exportedVars<Store> | any;
-export declare let UpInit: boolean;
+declare let exported: exportedVars | any;
+declare let UpInit: boolean;
 /**
  * Setup
  *
  * @param options
  */
-export declare const setUp: <Store_1 = any>(options: UpOptions<Store_1>) => Promise<exportedVars<Store_1>>;
+declare const setUp: (options: UpOptions) => Promise<any>;
 /**
  * useUp helper function
  *
  */
-export declare const useUp: <Store_1 = any>() => exportedVars<Store_1>;
-export interface Props<Store = any> {
-    options: UpOptions<Store>;
+declare const useUp: () => exportedVars;
+interface Props {
+    options: UpOptions;
     children?: React.ReactNode;
 }
-export declare const UpContext: React.Context<{}>;
+declare const UpContext: React.Context<{}>;
 /**
  * UpProvider should be wrapped in the early stage of your app
  *
@@ -61,4 +61,6 @@ export declare const UpContext: React.Context<{}>;
  * @param children
  * @constructor
  */
-export declare function UpProvider<T = any>({ options, children }: Props<T>): import("react/jsx-runtime").JSX.Element;
+declare function UpProvider({ options, children }: Props): react_jsx_runtime.JSX.Element;
+
+export { type Props, UpContext, UpInit, type UpOptions, UpProvider, exported, type exportedVars, setUp, useUp };

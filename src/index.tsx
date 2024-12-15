@@ -1,25 +1,17 @@
-import {Store} from "@reduxjs/toolkit";
-import React, {createContext, useCallback, useEffect, useMemo, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {Config} from 'js-config-helper';
 import axios, {AxiosInstance} from 'axios';
 import {Form} from "js-form-helper";
 import i18next, {InitOptions, TFunction} from 'i18next';
 import {initReactI18next} from "react-i18next";
-import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
-import {setContext} from "@apollo/client/link/context";
-//import {ApolloClient} from "@apollo/client";
 
 let api: object | null | any;
 let http: object | null | any;
-let config: any;
-let store: Store<object> | unknown | null;
+let config: any | null;
 let form: any | null;
 let formApi: any | null;
-//let message: MessageInstance | null;
-//let notification: NotificationInstance | null;
-//let graphqlClient: ApolloClient<any> | any;
 
-export interface UpOptions<Store = any> {
+export interface UpOptions {
     debug?: boolean,
     project?: {
         name: string,
@@ -29,8 +21,6 @@ export interface UpOptions<Store = any> {
         }
     };
     i18n?: InitOptions;
-    storeMode?: "reactive" | "redux";
-    store?: Store;
     api?: {
         url: string; // Url endpoint of your API
     };
@@ -39,9 +29,11 @@ export interface UpOptions<Store = any> {
         client?: any; // Url endpoint of your API
     };
     exclude?: string[];
+    loading?: boolean;
+    setLoading?: (loading: boolean) => void;
 }
 
-export interface exportedVars<Store = any> {
+export interface exportedVars {
     config: Config;
     api: AxiosInstance;
     http: AxiosInstance;
@@ -49,13 +41,10 @@ export interface exportedVars<Store = any> {
     form: (values?: any, options?: any) => Form;
     formApi: (values?: any, options?: any) => Form;
     graphqlClient: any;
-    store?: Store;
     t: TFunction;
-    //message?: MessageInstance;
-    //notification?: NotificationInstance;
 }
 
-export let exported: exportedVars<Store> | any;
+export let exported: exportedVars | any;
 
 export let UpInit = false;
 
@@ -64,7 +53,7 @@ export let UpInit = false;
  *
  * @param options
  */
-export const setUp = async function setUp<Store = any>(options: UpOptions<Store>): Promise<exportedVars<Store>> {
+export const setUp = async function setUp(options: UpOptions) {
 
     config = new Config(options);
 
@@ -97,46 +86,11 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         }
     }
 
-    /*if (!config.has('exclude.message')) {
-        message = config.get('override.message') || messageAnt;
-    }
-
-    if (!config.has('exclude.notification')) {
-        notification = config.get('override.notification') || notificationAnt;
-    }*/
-
     if (!config.has('exclude.i18n')) {
         if (options.i18n) {
             await i18next
                 .use(initReactI18next)
                 .init(options.i18n);
-        }
-    }
-
-    let graphqlClient;
-
-    if (!config.has('exclude.graphql')) {
-        if (config.has('graphql.client')) {
-            graphqlClient = config.get('graphql.client');
-        } else {
-            const apolloHttpLink = createHttpLink({
-                uri: options.graphql.url,
-            })
-
-            const apolloAuthContext = setContext(async (_, {headers}) => {
-                const accessToken = localStorage.getItem('accessToken')
-                return {
-                    headers: {
-                        ...headers,
-                        Authorization: accessToken ? `Bearer ${accessToken}` : ''
-                    },
-                }
-            })
-
-            graphqlClient = new ApolloClient({
-                link: apolloAuthContext.concat(apolloHttpLink),
-                cache: new InMemoryCache()
-            });
         }
     }
 
@@ -147,11 +101,7 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
         i18n: i18next,
         form,
         formApi,
-        store,
-        graphqlClient,
         t: i18next.t,
-        //message: message,
-        //notification: notification,
     };
 
     if (config.has('debug')) {
@@ -167,7 +117,7 @@ export const setUp = async function setUp<Store = any>(options: UpOptions<Store>
  * useUp helper function
  *
  */
-export const useUp = function <Store = any>(): exportedVars<Store> {
+export const useUp = function (): exportedVars {
 
     if (!UpInit) {
         console.warn('Up is not initialized, you must run setUp() first or add an UpProvider !');
@@ -176,8 +126,8 @@ export const useUp = function <Store = any>(): exportedVars<Store> {
     return exported;
 }
 
-export interface Props<Store = any> {
-    options: UpOptions<Store>,
+export interface Props {
+    options: UpOptions,
     children?: React.ReactNode;
 }
 
@@ -190,18 +140,24 @@ export const UpContext = createContext({});
  * @param children
  * @constructor
  */
-export function UpProvider<T = any>({options, children}: Props<T>) {
+export function UpProvider({options, children}: Props) {
     const [loading, setLoading] = useState(true);
     const [up, setInitUp] = useState<exportedVars>();
 
     const initUp = async () => {
-        const up = await setUp(options);
+        const up = await setUp({
+            ...options,
+            loading,
+            setLoading
+        });
         setInitUp(up);
         setLoading(false);
     }
 
     useEffect(() => {
-        initUp().then(() => console.log('loaded'));
+        initUp().then(() => {
+            options.debug && console.log('Up loaded')
+        });
     }, []);
 
     if (!up) {
@@ -209,9 +165,7 @@ export function UpProvider<T = any>({options, children}: Props<T>) {
     }
 
     return (<UpContext.Provider value={up}>
-            <ApolloProvider client={up.graphqlClient}>
-                {children}
-            </ApolloProvider>
+            {children}
         </UpContext.Provider>
     );
-};
+}
