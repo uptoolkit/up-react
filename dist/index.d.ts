@@ -1,11 +1,9 @@
-import * as react_jsx_runtime from 'react/jsx-runtime';
-import React from 'react';
+import React from "react";
 import { Config } from 'js-config-helper';
 import { AxiosInstance } from 'axios';
-import { Form } from 'js-form-helper';
+import { Form } from "js-form-helper";
 import i18next, { InitOptions, TFunction } from 'i18next';
-
-interface UpOptions {
+export interface UpOptions {
     debug?: boolean;
     project?: {
         name: string;
@@ -26,7 +24,7 @@ interface UpOptions {
     loading?: boolean;
     setLoading?: (loading: boolean) => void;
 }
-interface exportedVars {
+export interface exportedVars {
     config: Config;
     api: AxiosInstance;
     http: AxiosInstance;
@@ -36,24 +34,24 @@ interface exportedVars {
     graphqlClient: any;
     t: TFunction;
 }
-declare let exported: exportedVars | any;
-declare let UpInit: boolean;
+export declare let exported: exportedVars | any;
+export declare let UpInit: boolean;
 /**
  * Setup
  *
  * @param options
  */
-declare const setUp: (options: UpOptions) => Promise<any>;
+export declare const setUp: (options: UpOptions) => Promise<any>;
 /**
  * useUp helper function
  *
  */
-declare const useUp: () => exportedVars;
-interface Props {
+export declare const useUp: () => exportedVars;
+export interface Props {
     options: UpOptions;
     children?: React.ReactNode;
 }
-declare const UpContext: React.Context<{}>;
+export declare const UpContext: React.Context<{}>;
 /**
  * UpProvider should be wrapped in the early stage of your app
  *
@@ -61,6 +59,4 @@ declare const UpContext: React.Context<{}>;
  * @param children
  * @constructor
  */
-declare function UpProvider({ options, children }: Props): react_jsx_runtime.JSX.Element;
-
-export { type Props, UpContext, UpInit, type UpOptions, UpProvider, exported, type exportedVars, setUp, useUp };
+export declare function UpProvider({ options, children }: Props): import("react/jsx-runtime").JSX.Element;
